@@ -1,0 +1,591 @@
+<style>
+    /* Custom styles for the Inter font and overall body */
+    .routine-finder-container {
+        font-family: 'Inter', sans-serif;
+        background-color: #ffffff; /* White card background */
+        border-radius: 1.5rem; /* More rounded corners */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        padding: 1.5rem; /* Reduced padding for a more compact widget */
+        max-width: 700px; /* Adjusted max width for readability and fit */
+        width: 100%; /* Full width on smaller screens */
+        text-align: center;
+        border: 2px solid #e76f51; /* Peachy-orange border */
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        margin: 0 auto; /* Center the container horizontally */
+        height: auto; /* Allow height to be auto and expand with content */
+        background-color: #fef3e7; /* Background for the widget itself */
+    }
+
+    .finder-title {
+        color: #2a9d8f; /* Teal for title */
+        font-size: 2.25rem; /* Slightly reduced font size for widget feel */
+        font-weight: 800;
+        margin-bottom: 1rem; /* Reduced margin */
+        line-height: 1.2;
+    }
+
+    .finder-subtitle {
+        color: #4a4a4a;
+        font-size: 1rem; /* Slightly reduced font size for widget feel */
+        margin-bottom: 1.5rem; /* Reduced margin */
+    }
+
+    .input-group {
+        margin-bottom: 1.5rem;
+        text-align: left;
+        padding: 0.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.75rem;
+        background-color: #f9fafb;
+    }
+    .input-group label {
+        display: block;
+        font-size: 1.1rem;
+        color: #2a9d8f; /* Teal for labels */
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+    }
+
+    .select-input, .checkbox-option input[type="checkbox"] {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.75rem;
+        font-size: 1rem;
+        color: #333;
+        background-color: #f9fafb;
+        text-align: left;
+        appearance: none; /* Remove default select arrow for consistency */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+    .select-input {
+        background-image: url('data:image/svg+xml;utf8,<svg fill="%234a4a4a" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 1.25rem;
+    }
+
+    .checkbox-option {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        cursor: pointer;
+        padding: 0.4rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.2s ease;
+    }
+    .checkbox-option:hover {
+        background-color: #f0f0f0;
+    }
+    .checkbox-option input[type="checkbox"] {
+        margin-right: 0.6rem;
+        accent-color: #e76f51; /* Peachy-orange for checkboxes */
+        transform: scale(1.1);
+        width: auto; /* Allow checkbox to be its natural width */
+        height: auto;
+        border-radius: 0.25rem; /* Slightly rounded checkbox */
+    }
+    .checkbox-option input[type="checkbox"]:checked {
+        background-color: #e76f51; /* Peachy-orange when checked */
+        border-color: #e76f51;
+    }
+    .checkbox-option label {
+        font-size: 0.95rem; /* Slightly reduced font size */
+        color: #4a4a4a;
+        cursor: pointer;
+        flex-grow: 1;
+        margin-bottom: 0; /* Override default label margin */
+    }
+
+    .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1.5rem;
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out, transform 0.1s ease, box-shadow 0.2s ease;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        background-color: #f4a261; /* Sun orange button */
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #e76f51; /* Darker peach on hover */
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    .btn-primary:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-secondary {
+        background-color: #2a9d8f; /* Teal secondary button */
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #258a7d; /* Darker teal on hover */
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    .btn-secondary:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .results-section {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 2px dashed #2a9d8f; /* Teal dashed line */
+        text-align: left;
+    }
+
+    .results-heading {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #e76f51; /* Peachy-orange for results heading */
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .routine-section h4 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #2a9d8f; /* Teal for routine subheadings */
+        margin-top: 1.25rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .routine-list {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0.75rem;
+    }
+
+    .routine-list li {
+        background-color: #fff7ed; /* Lighter peach for list items */
+        border: 1px solid #f4a261; /* Sun orange border */
+        border-radius: 0.75rem;
+        padding: 0.6rem 0.8rem;
+        margin-bottom: 0.4rem;
+        display: flex;
+        align-items: center;
+        font-size: 0.95rem;
+        color: #4a4a4a;
+    }
+    .routine-list li::before {
+        content: '✨'; /* Sparkle emoji for list items */
+        margin-right: 0.6rem;
+        font-size: 1.1rem;
+    }
+
+    /* Removed message-box styles */
+
+    .disclaimer-box {
+        background-color: #fff7ed; /* Lighter peach for disclaimer */
+        border: 1px solid #f4a261; /* Sun orange border */
+        border-radius: 0.75rem;
+        padding: 1rem;
+        margin-top: 2rem;
+        font-size: 0.85rem;
+        color: #e76f51; /* Peachy-orange text */
+        text-align: left;
+        line-height: 1.4;
+    }
+    .disclaimer-box strong {
+        color: #d65a40; /* Darker peach for emphasis */
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 640px) {
+        .routine-finder-container {
+            padding: 1rem;
+        }
+        .finder-title {
+            font-size: 1.75rem;
+        }
+        .finder-subtitle {
+            font-size: 0.9rem;
+        }
+        .input-group {
+            padding: 0.6rem;
+        }
+        .input-group label {
+            font-size: 1rem;
+        }
+        .select-input, .checkbox-option label {
+            font-size: 0.9rem;
+        }
+        .btn {
+            font-size: 1rem;
+            padding: 0.6rem 1.5rem;
+        }
+        .results-heading {
+            font-size: 1.4rem;
+        }
+        .routine-section h4 {
+            font-size: 1.1rem;
+        }
+        .routine-list li {
+            font-size: 0.85rem;
+            padding: 0.5rem 0.7rem;
+        }
+        .disclaimer-box {
+            font-size: 0.75rem;
+            padding: 0.75rem;
+        }
+    }
+</style>
+
+<div class="routine-finder-container">
+    <h1 class="finder-title">Auntie Esty's Routine Finder</h1>
+    <p class="finder-subtitle">Select your skin type and concerns to get your personalized routine, bestie!</p>
+
+    <form id="routineFinderForm">
+        <div class="input-group">
+            <label for="primarySkinType">1. What is your Primary Skin Type?</label>
+            <select id="primarySkinType" class="select-input" required>
+                <option value="">-- Select One --</option>
+                <option value="Normal">Normal</option>
+                <option value="Dry">Dry</option>
+                <option value="Oily">Oily</option>
+                <option value="Combination">Combination</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>2. Do you have any of these specific concerns? (Select all that apply)</label>
+            <div class="checkbox-options-group">
+                <label class="checkbox-option">
+                    <input type="checkbox" name="concern" value="Sensitive"> Sensitive
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="concern" value="Acne-Prone"> Acne-Prone
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="concern" value="Hyperpigmentation"> Hyperpigmentation
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="concern" value="Aging Concerns"> Aging Concerns (Fine lines, wrinkles, firmness)
+                </label>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button type="submit" id="getRoutineButton" class="btn btn-primary">Get My Routine!</button>
+            <button type="button" id="clearSelectionsButton" class="btn btn-secondary">Clear Selections</button>
+        </div>
+    </form>
+
+    <div id="resultsSection" class="results-section hidden">
+        <h2 id="resultsHeading" class="results-heading"></h2>
+        <div id="routineContent">
+            <!-- Routine details will be injected here -->
+        </div>
+    </div>
+
+    <!-- Disclaimer Box -->
+    <div class="disclaimer-box">
+        <strong>Auntie Esty's Wisdom:</strong> This personalized routine is a general guide based on your selections. Skincare is unique to every bestie! Always patch test new products, listen to your skin, and consult with a qualified healthcare professional or licensed dermatologist for specific skin conditions or concerns. This tool is not a substitute for professional medical advice.
+    </div>
+</div>
+
+<script>
+    // --- DOM Elements ---
+    const routineFinderForm = document.getElementById('routineFinderForm');
+    const primarySkinTypeSelect = document.getElementById('primarySkinType');
+    const concernCheckboxes = document.querySelectorAll('input[name="concern"]');
+    const getRoutineButton = document.getElementById('getRoutineButton');
+    const clearSelectionsButton = document.getElementById('clearSelectionsButton');
+    const resultsSection = document.getElementById('resultsSection');
+    const resultsHeading = document.getElementById('resultsHeading');
+    const routineContent = document.getElementById('routineContent');
+
+    // --- Helper Functions ---
+
+    /**
+     * Generates routine HTML based on selected skin type and concerns.
+     * This logic is adapted from the previous "Personalized Routine Architect".
+     * @param {string} primaryType - The selected primary skin type.
+     * @param {Array<string>} concerns - Array of selected concerns.
+     * @returns {string} HTML string for the routine.
+     */
+    function generateRoutineHTML(primaryType, concerns) {
+        const isSensitive = concerns.includes('Sensitive');
+        const hasAcne = concerns.includes('Acne-Prone');
+        const hasHyperpigmentation = concerns.includes('Hyperpigmentation');
+        const hasAging = concerns.includes('Aging Concerns');
+
+        let morningRoutine = [];
+        let eveningRoutine = [];
+        let weeklyBoosters = [];
+
+        // --- Core Routine based on Primary Skin Type ---
+        switch (primaryType) {
+            case 'Normal':
+                morningRoutine = [
+                    'Gentle Cleanser',
+                    'Hydrating Toner (e.g., with Hyaluronic Acid or Rose Water)',
+                    'Antioxidant Serum (e.g., Vitamin C)',
+                    'Lightweight Moisturizer',
+                    'Broad-Spectrum SPF 30+'
+                ];
+                eveningRoutine = [
+                    'Gentle Cleanser',
+                    'Hydrating Toner',
+                    'Hydrating Serum (e.g., Hyaluronic Acid)',
+                    'Moisturizer'
+                ];
+                weeklyBoosters = [
+                    'Hydrating Mask (e.g., sheet mask or cream mask) for an extra glow boost.',
+                    'Gentle Enzyme Exfoliant (if desired for smoothness).'
+                ];
+                break;
+            case 'Dry':
+                morningRoutine = [
+                    'Cream or Hydrating Cleanser (no harsh sulfates)',
+                    'Alcohol-Free Hydrating Toner (e.g., with Ceramides or Glycerin)',
+                    'Calming/Barrier Repair Serum (e.g., Ceramides, Niacinamide)',
+                    'Rich, Emollient Moisturizer',
+                    'Mineral Broad-Spectrum SPF 30+ (gentler option)'
+                ];
+                eveningRoutine = [
+                    'Gentle Cream Cleanser',
+                    'Alcohol-Free Hydrating Toner',
+                    'Hydrating Serum (e.g., Hyaluronic Acid, Glycerin)',
+                    'Rich, Barrier-Supporting Moisturizer'
+                ];
+                weeklyBoosters = [
+                    'Cream or Gel Hydrating Mask (for intense moisture).',
+                    'Nourishing Facial Oil (can be added to moisturizer).'
+                ];
+                break;
+            case 'Oily':
+                morningRoutine = [
+                    'Foaming or Gel Cleanser',
+                    'Balancing/Exfoliating Toner (e.g., with Salicylic Acid or Witch Hazel, if tolerated)',
+                    'Lightweight Hydrating Serum (non-comedogenic)',
+                    'Oil-Free Moisturizer',
+                    'Oil-Free Broad-Spectrum SPF 30+'
+                ];
+                eveningRoutine = [
+                    'Double Cleanse (Oil Cleanser then Gel Cleanser)',
+                    'Balancing/Exfoliating Toner',
+                    'Lightweight, Non-Comedogenic Moisturizer'
+                ];
+                weeklyBoosters = [
+                    'Clay Mask (for oil absorption and pore cleansing).',
+                    'Salicylic Acid Mask (for targeted breakout treatment, if applicable).'
+                ];
+                break;
+            case 'Combination':
+                morningRoutine = [
+                    'Gentle Foaming Cleanser',
+                    'Balancing Toner (e.g., with Niacinamide or light AHAs if tolerated)',
+                    'Antioxidant Serum (e.g., Vitamin C for brightening)',
+                    'Lightweight Moisturizer (gel-cream for T-zone, slightly richer for dry areas)',
+                    'Broad-Spectrum SPF 30+'
+                ];
+                eveningRoutine = [
+                    'Double Cleanse (Oil Cleanser then Gentle Foaming Cleanser)',
+                    'Exfoliating Toner (e.g., AHA/BHA blend, start slow)',
+                    'Moisturizer'
+                ];
+                weeklyBoosters = [
+                    'Brightening Mask (e.g., with Vitamin C, Glycolic Acid, or enzymes).',
+                    'Clay Mask (for oily T-zone, if needed).'
+                ];
+                break;
+        }
+
+        // --- Adjustments for Sensitive Skin (applied as a modifier) ---
+        if (isSensitive) {
+            morningRoutine[0] = 'Extra Gentle Cream or Hydrating Cleanser (fragrance-free)';
+            eveningRoutine[0] = 'Extra Gentle Cream or Hydrating Cleanser (fragrance-free)';
+            morningRoutine = morningRoutine.filter(item => !item.includes('Vitamin C') || item.includes('gentle Vitamin C derivative'));
+            eveningRoutine = eveningRoutine.filter(item => !item.includes('Exfoliating') && !item.includes('Retinoid'));
+            
+            morningRoutine.splice(1, 0, 'Calming Essence or Serum (e.g., Centella Asiatica, Oats)');
+            eveningRoutine.splice(1, 0, 'Calming Essence or Serum (e.g., Centella Asiatica, Oats)');
+
+            weeklyBoosters = weeklyBoosters.filter(item => !item.includes('Exfoliant') && !item.includes('Acid') && !item.includes('Clay'));
+            weeklyBoosters.unshift('Calming/Soothing Mask (with ingredients like Centella Asiatica or Oats).');
+        }
+
+        // --- Add Specific Concern Treatments (Careful Ordering) ---
+        let currentMorningIndex = morningRoutine.findIndex(item => item.includes('Toner')) + 1;
+        if (currentMorningIndex === 0) currentMorningIndex = morningRoutine.findIndex(item => item.includes('Cleanser')) + 1;
+        if (currentMorningIndex === 0) currentMorningIndex = 0;
+
+        if (hasAcne && !isSensitive) {
+            const acneTreatmentMorning = 'Acne Treatment (e.g., Benzoyl Peroxide spot treatment)';
+            if (!morningRoutine.includes(acneTreatmentMorning)) {
+                morningRoutine.splice(currentMorningIndex++, 0, acneTreatmentMorning);
+            }
+        } else if (hasAcne && isSensitive) {
+            const gentleAcneMorning = 'Gentle Acne Spot Treatment (e.g., Azelaic Acid)';
+            if (!morningRoutine.includes(gentleAcneMorning)) {
+                morningRoutine.splice(currentMorningIndex++, 0, gentleAcneMorning);
+            }
+        }
+
+        if (hasHyperpigmentation) {
+            const brighteningSerum = 'Brightening Serum (e.g., Vitamin C, Alpha Arbutin)';
+            if (!morningRoutine.includes(brighteningSerum)) {
+                morningRoutine.splice(currentMorningIndex++, 0, brighteningSerum);
+            }
+        }
+
+        if (hasAging) {
+            const peptideSerum = 'Peptide Serum';
+            if (!morningRoutine.includes(peptideSerum)) {
+                morningRoutine.splice(currentMorningIndex++, 0, peptideSerum);
+            }
+        }
+
+        let currentEveningIndex = eveningRoutine.findIndex(item => item.includes('Toner')) + 1;
+        if (currentEveningIndex === 0) currentEveningIndex = eveningRoutine.findIndex(item => item.includes('Cleanser')) + 1;
+        if (currentEveningIndex === 0) currentEveningIndex = 0;
+
+        let retinoidStep = null;
+        if (isSensitive) {
+            retinoidStep = 'Very gentle Retinoid (if tolerated, with extreme caution)';
+        } else if (hasAcne || hasAging) {
+            retinoidStep = 'Retinoid (start slow! Consult a professional if new to retinoids)';
+        }
+
+        if (retinoidStep) {
+            const existingRetinoidIndex = eveningRoutine.findIndex(item => item.includes('Retinoid'));
+            if (existingRetinoidIndex === -1) {
+                eveningRoutine.splice(currentEveningIndex++, 0, retinoidStep);
+            } else {
+                if (isSensitive && !eveningRoutine[existingRetinoidIndex].includes('Very gentle')) {
+                    eveningRoutine[existingRetinoidIndex] = retinoidStep;
+                }
+            }
+        }
+
+        if (hasAcne && !isSensitive) {
+            const acneTreatmentEvening = 'Acne Treatment (e.g., Salicylic Acid leave-on)';
+            if (!eveningRoutine.includes(acneTreatmentEvening)) {
+                eveningRoutine.splice(currentEveningIndex++, 0, acneTreatmentEvening);
+            }
+        }
+
+        if (hasHyperpigmentation) {
+            const targetedBrightening = 'Targeted Brightening Treatment (e.g., Niacinamide, Tranexamic Acid)';
+            if (!eveningRoutine.includes(targetedBrightening)) {
+                eveningRoutine.splice(currentEveningIndex++, 0, targetedBrightening);
+            }
+        }
+
+
+        let html = `
+            <p style="font-size: 1.05rem; color: #4a4a4a; margin-bottom: 0.8rem; text-align: center;">Your Skin Profile: <strong style="color: #2a9d8f;">${primaryType}</strong> ${concerns.length > 0 ? `with concerns for: <strong style="color: #2a9d8f;">${concerns.join(', ')}</strong>` : ''}</p>
+
+            <div class="routine-section">
+                <h4 style="font-size: 1.3rem; font-weight: 700; color: #2a9d8f; margin-top: 1.25rem; margin-bottom: 0.6rem;">☀️ Morning Routine:</h4>
+                <ul class="routine-list" style="list-style: none; padding-left: 0; margin-bottom: 0.75rem;">
+                    ${morningRoutine.map(step => `<li style="background-color: #fff7ed; border: 1px solid #f4a261; border-radius: 0.75rem; padding: 0.6rem 0.8rem; margin-bottom: 0.4rem; display: flex; align-items: center; font-size: 0.95rem; color: #4a4a4a;">✨ ${step}</li>`).join('')}
+                </ul>
+            </div>
+
+            <div class="routine-section">
+                <h4 style="font-size: 1.3rem; font-weight: 700; color: #2a9d8f; margin-top: 1.25rem; margin-bottom: 0.6rem;">🌙 Evening Routine:</h4>
+                <ul class="routine-list" style="list-style: none; padding-left: 0; margin-bottom: 0.75rem;">
+                    ${eveningRoutine.map(step => `<li style="background-color: #fff7ed; border: 1px solid #f4a261; border-radius: 0.75rem; padding: 0.6rem 0.8rem; margin-bottom: 0.4rem; display: flex; align-items: center; font-size: 0.95rem; color: #4a4a4a;">✨ ${step}</li>`).join('')}
+                </ul>
+            </div>
+
+            <div class="routine-section">
+                <h4 style="font-size: 1.3rem; font-weight: 700; color: #2a9d8f; margin-top: 1.25rem; margin-bottom: 0.6rem;">✨ Weekly Boosters & Treatments (1-2 times a week):</h4>
+                <ul class="routine-list" style="list-style: none; padding-left: 0; margin-bottom: 0.75rem;">
+                    ${weeklyBoosters.map(step => `<li style="background-color: #fff7ed; border: 1px solid #f4a261; border-radius: 0.75rem; padding: 0.6rem 0.8rem; margin-bottom: 0.4rem; display: flex; align-items: center; font-size: 0.95rem; color: #4a4a4a;">✨ ${step}</li>`).join('')}
+                </ul>
+            </div>
+            <p style="color: #6a6a6a; font-size: 0.9rem; margin-top: 1.5rem;">Remember to always patch test new products and introduce actives slowly, bestie!</p>
+        `;
+
+        return html;
+    }
+
+    /**
+     * Handles the "Get My Routine!" button click.
+     */
+    async function handleGetRoutine(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const primaryType = primarySkinTypeSelect.value;
+        const selectedConcerns = Array.from(concernCheckboxes)
+                                    .filter(checkbox => checkbox.checked)
+                                    .map(checkbox => checkbox.value);
+
+        // --- Input Validation ---
+        if (!primaryType) {
+            // Rely on browser's 'required' validation for select.
+            return;
+        }
+
+        // Reset UI
+        resultsSection.classList.add('hidden');
+        getRoutineButton.disabled = true; // Disable button during calculation
+
+        // Simulate a short delay for "thinking"
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // Generate and display the routine
+        resultsHeading.textContent = `Your Personalized Routine for ${primaryType} Skin`;
+        if (selectedConcerns.length > 0) {
+            resultsHeading.textContent += ` with ${selectedConcerns.join(', ')} Concerns`;
+        }
+        routineContent.innerHTML = generateRoutineHTML(primaryType, selectedConcerns);
+
+        getRoutineButton.disabled = false;
+        resultsSection.classList.remove('hidden');
+    }
+
+    /**
+     * Clears all selections and hides results.
+     */
+    function handleClearSelections() {
+        primarySkinTypeSelect.value = ""; // Reset select dropdown
+        concernCheckboxes.forEach(checkbox => {
+            checkbox.checked = false; // Uncheck all checkboxes
+            checkbox.closest('label').classList.remove('selected'); // Remove selected class
+        });
+        resultsSection.classList.add('hidden'); // Hide results
+        getRoutineButton.disabled = false; // Ensure button is enabled
+    }
+
+    // --- Event Listeners ---
+    routineFinderForm.addEventListener('submit', handleGetRoutine);
+    clearSelectionsButton.addEventListener('click', handleClearSelections);
+
+    // Add event listeners for checkbox changes to apply/remove 'selected' class
+    concernCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', (event) => {
+            if (event.target.checked) {
+                event.target.closest('label').classList.add('selected');
+            } else {
+                event.target.closest('label').classList.remove('selected');
+            }
+        });
+    });
+
+    // --- Initial Setup ---
+    resultsSection.classList.add('hidden'); // Hide results until generated
+</script>
