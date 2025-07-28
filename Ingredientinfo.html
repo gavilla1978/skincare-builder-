@@ -1,0 +1,493 @@
+<style>
+    /* General Container Styling */
+    .decoder-container {
+        font-family: 'Inter', sans-serif;
+        background-color: #fef3e7; /* Light peach background */
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        max-width: 800px;
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        border: 2px solid #2a9d8f; /* Teal border */
+        box-sizing: border-box;
+    }
+
+    /* Titles and Subtitles */
+    .decoder-title {
+        color: #e76f51; /* Peachy-orange */
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+    }
+
+    .decoder-subtitle {
+        color: #4a4a4a;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Input Area */
+    .input-group {
+        margin-bottom: 1.5rem;
+        text-align: left;
+    }
+
+    .input-group label {
+        display: block;
+        font-size: 1.2rem;
+        color: #2a9d8f; /* Teal */
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 150px;
+        padding: 1rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.75rem;
+        font-size: 1rem;
+        color: #333;
+        background-color: #f9fafb;
+        resize: vertical; /* Allow vertical resizing */
+        box-sizing: border-box; /* Include padding in width */
+    }
+
+    /* Buttons */
+    .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1.5rem;
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out, transform 0.1s ease, box-shadow 0.2s ease;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        background-color: #f4a261; /* Sun orange */
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #e76f51; /* Darker peach on hover */
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    .btn-primary:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-secondary {
+        background-color: #2a9d8f; /* Teal */
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #258a7d; /* Darker teal on hover */
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    .btn-secondary:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Results Section */
+    .results-section {
+        margin-top: 2.5rem;
+        padding-top: 2rem;
+        border-top: 2px dashed #f4a261; /* Sun orange dashed line */
+        text-align: left;
+    }
+
+    .results-heading {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #e76f51; /* Peachy-orange */
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .ingredient-card {
+        background-color: #ffffff;
+        border: 1px solid #d1d5db;
+        border-radius: 1rem;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease;
+    }
+
+    .ingredient-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .ingredient-card h3 {
+        color: #2a9d8f; /* Teal */
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .ingredient-card h3 .common-name {
+        font-weight: 700;
+    }
+
+    .ingredient-card h3 .inci-name {
+        font-size: 0.9em;
+        font-weight: 400;
+        color: #6b7280;
+        margin-left: 0.5rem;
+    }
+
+    .ingredient-card p {
+        font-size: 0.95rem;
+        color: #4a4a4a;
+        line-height: 1.5;
+        margin-bottom: 0.5rem;
+    }
+
+    .ingredient-card strong {
+        color: #e76f51; /* Peachy-orange */
+    }
+
+    .ingredient-card ul {
+        list-style: none;
+        padding-left: 0;
+        margin-top: 0.5rem;
+    }
+
+    .ingredient-card ul li {
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 0.3rem;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .ingredient-card ul li::before {
+        content: '•';
+        color: #2a9d8f; /* Teal bullet */
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+    }
+
+    .ingredient-card .benefits-list li::before {
+        content: '✅'; /* Checkmark for benefits */
+        color: #2a9d8f;
+    }
+
+    .ingredient-card .cautions-list li::before {
+        content: '⚠️'; /* Warning for cautions */
+        color: #e76f51;
+    }
+
+    .ingredient-card .no-info {
+        color: #888;
+        font-style: italic;
+    }
+
+    .no-ingredients-found {
+        text-align: center;
+        color: #888;
+        font-style: italic;
+        margin-top: 1.5rem;
+    }
+
+    /* Integration Links */
+    .integration-links {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px dashed #d1d5db;
+        text-align: center;
+    }
+
+    .integration-links p {
+        font-size: 1rem;
+        color: #4a4a4a;
+        margin-bottom: 1rem;
+    }
+
+    .integration-links .link-btn {
+        display: inline-block;
+        background-color: #f4a261; /* Sun orange */
+        color: white;
+        padding: 0.6rem 1.2rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        margin: 0.5rem;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .integration-links .link-btn:hover {
+        background-color: #e76f51;
+        transform: translateY(-2px);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+        .decoder-container {
+            padding: 1rem;
+        }
+        .decoder-title {
+            font-size: 2rem;
+        }
+        .decoder-subtitle {
+            font-size: 1rem;
+        }
+        .input-group label {
+            font-size: 1.1rem;
+        }
+        textarea {
+            padding: 0.75rem;
+            font-size: 0.95rem;
+        }
+        .btn {
+            font-size: 1rem;
+            padding: 0.6rem 1rem;
+        }
+        .results-heading {
+            font-size: 1.5rem;
+        }
+        .ingredient-card h3 {
+            font-size: 1.3rem;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .ingredient-card h3 .inci-name {
+            margin-left: 0;
+            margin-top: 0.2rem;
+            font-size: 0.8em;
+        }
+        .ingredient-card p, .ingredient-card ul li {
+            font-size: 0.85rem;
+        }
+        .integration-links .link-btn {
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            margin: 0.3rem;
+        }
+    }
+</style>
+
+<div class="decoder-container">
+    <h1 class="decoder-title">Auntie Esty's Ingredient Decoder</h1>
+    <p class="decoder-subtitle">Paste your product's ingredient list below, bestie, and let's decode your skincare!</p>
+
+    <div class="input-group">
+        <label for="ingredientList">Paste Ingredient List Here:</label>
+        <textarea id="ingredientList" placeholder="e.g., Aqua, Glycerin, Sodium Hyaluronate, Niacinamide, Ascorbic Acid, Tocopherol, Retinol, Salicylic Acid, Zinc Oxide, Phenoxyethanol, Parfum"></textarea>
+    </div>
+
+    <div class="button-group">
+        <button id="decodeButton" class="btn btn-primary">Decode Ingredients!</button>
+        <button id="clearButton" class="btn btn-secondary">Clear All</button>
+    </div>
+
+    <div id="resultsSection" class="results-section hidden">
+        <h2 class="results-heading">Your Ingredient Breakdown:</h2>
+        <div id="ingredientResults">
+            <!-- Decoded ingredients will be displayed here -->
+        </div>
+        <p class="no-ingredients-found hidden" id="noIngredientsFoundMessage">No recognized ingredients found. Please check your spelling or try a different list!</p>
+    </div>
+
+    <div class="integration-links">
+        <p>Want to know your skin type or find a routine? Check out Auntie Esty's other tools!</p>
+        <a href="https://gavilla1978.github.io/skincare-builder-/skin-builder.html" target="_blank" class="link-btn">Skin Type Assessment</a>
+        <a href="https://gavilla1978.github.io/skincare-builder-/routine-finder.html" target="_blank" class="link-btn">Routine Finder</a>
+    </div>
+</div>
+
+<script>
+    const ingredientListTextarea = document.getElementById('ingredientList');
+    const decodeButton = document.getElementById('decodeButton');
+    const clearButton = document.getElementById('clearButton');
+    const resultsSection = document.getElementById('resultsSection');
+    const ingredientResultsDiv = document.getElementById('ingredientResults');
+    const noIngredientsFoundMessage = document.getElementById('noIngredientsFoundMessage');
+
+    // Auntie Esty's Ingredient Database (Comprehensive but not exhaustive)
+    const ingredientData = {
+        // --- Humectants ---
+        "aqua": { commonName: "Water", category: "Humectant/Solvent", benefits: ["Base for most formulations"], cautions: [] },
+        "glycerin": { commonName: "Glycerin", category: "Humectant", benefits: ["Draws moisture into skin", "Hydrating", "Supports skin barrier"], cautions: [] },
+        "sodium hyaluronate": { commonName: "Hyaluronic Acid", category: "Humectant", benefits: ["Intense hydration", "Plumps skin", "Reduces fine lines"], cautions: [] },
+        "hyaluronic acid": { commonName: "Hyaluronic Acid", category: "Humectant", benefits: ["Intense hydration", "Plumps skin", "Reduces fine lines"], cautions: [] },
+        "butylene glycol": { commonName: "Butylene Glycol", category: "Humectant/Solvent", benefits: ["Hydrating", "Enhances penetration"], cautions: [] },
+        "propylene glycol": { commonName: "Propylene Glycol", category: "Humectant/Solvent", benefits: ["Hydrating", "Enhances penetration"], cautions: [] },
+        "urea": { commonName: "Urea", category: "Humectant/Exfoliant", benefits: ["Hydrating", "Mildly exfoliating", "Softens skin"], cautions: [] },
+        "sodium pca": { commonName: "Sodium PCA", category: "Humectant", benefits: ["Natural Moisturizing Factor (NMF)", "Hydrating"], cautions: [] },
+        "panthenol": { commonName: "Panthenol (Vitamin B5)", category: "Humectant/Soothing", benefits: ["Hydrating", "Calming", "Supports skin barrier repair"], cautions: [] },
+        "betaine": { commonName: "Betaine", category: "Humectant/Soothing", benefits: ["Hydrating", "Reduces irritation"], cautions: [] },
+
+        // --- Emollients ---
+        "caprylic/capric triglyceride": { commonName: "Caprylic/Capric Triglyceride", category: "Emollient", benefits: ["Softens skin", "Non-greasy feel"], cautions: [] },
+        "squalane": { commonName: "Squalane", category: "Emollient/Occlusive", benefits: ["Lightweight hydration", "Softens skin", "Non-comedogenic", "Mimics natural sebum"], cautions: [] },
+        "cetyl alcohol": { commonName: "Cetyl Alcohol", category: "Emollient/Fatty Alcohol", benefits: ["Softens skin", "Thickener"], cautions: ["Not a drying alcohol"] },
+        "stearyl alcohol": { commonName: "Stearyl Alcohol", category: "Emollient/Fatty Alcohol", benefits: ["Softens skin", "Thickener"], cautions: ["Not a drying alcohol"] },
+        "ceramide np": { commonName: "Ceramide NP", category: "Emollient/Barrier Repair", benefits: ["Strengthens skin barrier", "Deep hydration", "Reduces sensitivity"], cautions: [] },
+        "ceramide ap": { commonName: "Ceramide AP", category: "Emollient/Barrier Repair", benefits: ["Strengthens skin barrier", "Deep hydration", "Reduces sensitivity"], cautions: [] },
+        "ceramide eop": { commonName: "Ceramide EOP", category: "Emollient/Barrier Repair", benefits: ["Strengthens skin barrier", "Deep hydration", "Reduces sensitivity"], cautions: [] },
+        "cholesterol": { commonName: "Cholesterol", category: "Emollient/Barrier Repair", benefits: ["Supports skin barrier", "Moisturizing"], cautions: [] },
+        "linoleic acid": { commonName: "Linoleic Acid", category: "Emollient/Fatty Acid", benefits: ["Supports skin barrier", "Moisturizing", "Beneficial for acne-prone skin"], cautions: [] },
+        "jojoba oil": { commonName: "Jojoba Oil", category: "Emollient/Oil", benefits: ["Mimics natural sebum", "Moisturizing", "Non-comedogenic"], cautions: [] },
+        "shea butter": { commonName: "Shea Butter", category: "Emollient/Occlusive", benefits: ["Rich moisturizer", "Softens skin", "Nourishing"], cautions: [] },
+        "argan oil": { commonName: "Argan Oil", category: "Emollient/Oil", benefits: ["Nourishing", "Antioxidant", "Moisturizing"], cautions: [] },
+        "rosehip oil": { commonName: "Rosehip Oil", category: "Emollient/Oil", benefits: ["Nourishing", "Brightening", "Supports skin regeneration"], cautions: [] },
+        "squalane": { commonName: "Squalane", category: "Emollient/Occlusive", benefits: ["Lightweight hydration", "Softens skin", "Non-comedogenic", "Mimics natural sebum"], cautions: [] },
+
+
+        // --- Occlusives ---
+        "petrolatum": { commonName: "Petrolatum (Vaseline)", category: "Occlusive", benefits: ["Forms protective barrier", "Prevents moisture loss", "Highly effective"], cautions: ["Can feel heavy for some"] },
+        "mineral oil": { commonName: "Mineral Oil", category: "Occlusive", benefits: ["Forms protective barrier", "Prevents moisture loss", "Non-comedogenic"], cautions: [] },
+        "lanolin": { commonName: "Lanolin", category: "Occlusive/Emollient", benefits: ["Intense moisturizing", "Barrier forming"], cautions: ["Potential allergen for some"] },
+        "dimethicone": { commonName: "Dimethicone", category: "Occlusive/Silicone", benefits: ["Forms breathable barrier", "Smooths skin texture", "Non-comedogenic"], cautions: [] },
+        "beeswax": { commonName: "Beeswax", category: "Occlusive", benefits: ["Forms protective barrier", "Thickener"], cautions: [] },
+
+        // --- Actives ---
+        "niacinamide": { commonName: "Niacinamide (Vitamin B3)", category: "Active", benefits: ["Reduces redness", "Minimizes pores", "Brightens skin tone", "Strengthens barrier", "Regulates oil"], cautions: [] },
+        "ascorbic acid": { commonName: "Vitamin C (L-Ascorbic Acid)", category: "Active", benefits: ["Powerful antioxidant", "Brightens skin", "Boosts collagen"], cautions: ["Can be unstable", "Increases sun sensitivity (use SPF)"] },
+        "sodium ascorbyl phosphate": { commonName: "Vitamin C (SAP)", category: "Active", benefits: ["Stable Vitamin C form", "Brightening", "Antioxidant", "Good for acne-prone skin"], cautions: [] },
+        "magnesium ascorbyl phosphate": { commonName: "Vitamin C (MAP)", category: "Active", benefits: ["Stable Vitamin C form", "Brightening", "Antioxidant"], cautions: [] },
+        "tetrahexyldecyl ascorbate": { commonName: "Vitamin C (THD Ascorbate)", category: "Active", benefits: ["Oil-soluble Vitamin C form", "Penetrates well", "Brightening", "Antioxidant"], cautions: [] },
+        "retinol": { commonName: "Retinol", category: "Active/Retinoid", benefits: ["Reduces wrinkles", "Treats acne", "Fades hyperpigmentation", "Improves texture"], cautions: ["Start slow, go slow", "Increases sun sensitivity (use SPF)", "Avoid if pregnant/breastfeeding", "Potential irritation"] },
+        "retinaldehyde": { commonName: "Retinaldehyde (Retinal)", category: "Active/Retinoid", benefits: ["Stronger than Retinol", "Reduces wrinkles", "Treats acne"], cautions: ["Start slow, go slow", "Increases sun sensitivity (use SPF)", "Avoid if pregnant/breastfeeding", "Potential irritation"] },
+        "tretinoin": { commonName: "Tretinoin (Retin-A)", category: "Active/Retinoid", benefits: ["Prescription strength", "Highly effective for acne & aging"], cautions: ["Prescription only", "Significant irritation possible", "Increases sun sensitivity (use SPF)", "Avoid if pregnant/breastfeeding"] },
+        "glycolic acid": { commonName: "Glycolic Acid (AHA)", category: "Active/Exfoliant", benefits: ["Exfoliates surface", "Improves texture & tone", "Reduces fine lines"], cautions: ["Increases sun sensitivity (use SPF)", "Potential irritation", "Don't over-exfoliate"] },
+        "lactic acid": { commonName: "Lactic Acid (AHA)", category: "Active/Exfoliant", benefits: ["Milder exfoliation", "Hydrating", "Improves texture"], cautions: ["Increases sun sensitivity (use SPF)", "Potential irritation"] },
+        "mandelic acid": { commonName: "Mandelic Acid (AHA)", category: "Active/Exfoliant", benefits: ["Gentlest AHA", "Good for sensitive/acne-prone skin", "Evens tone"], cautions: ["Increases sun sensitivity (use SPF)"] },
+        "salicylic acid": { commonName: "Salicylic Acid (BHA)", category: "Active/Exfoliant", benefits: ["Clears clogged pores", "Treats acne", "Reduces blackheads/whiteheads"], cautions: ["Increases sun sensitivity (use SPF)", "Potential dryness/irritation", "Avoid if allergic to aspirin"] },
+        "ceramides": { commonName: "Ceramides", category: "Active/Barrier Repair", benefits: ["Strengthens skin barrier", "Deep hydration", "Reduces sensitivity"], cautions: [] }, // Grouping for general lookup
+        "peptides": { commonName: "Peptides", category: "Active", benefits: ["Boosts collagen/elastin", "Reduces fine lines", "Supports skin repair"], cautions: ["Certain types may clash with low pH Vitamin C (see book)"] },
+        "tocopherol": { commonName: "Vitamin E", category: "Active/Antioxidant", benefits: ["Antioxidant", "Moisturizing", "Supports skin healing"], cautions: [] },
+        "ferulic acid": { commonName: "Ferulic Acid", category: "Active/Antioxidant", benefits: ["Powerful antioxidant", "Enhances Vitamin C stability"], cautions: [] },
+        "green tea extract": { commonName: "Green Tea Extract", category: "Active/Antioxidant", benefits: ["Antioxidant", "Anti-inflammatory", "Soothing"], cautions: [] },
+        "resveratrol": { commonName: "Resveratrol", category: "Active/Antioxidant", benefits: ["Powerful antioxidant", "Anti-aging"], cautions: [] },
+        "coenzyme q10": { commonName: "Coenzyme Q10 (CoQ10)", category: "Active/Antioxidant", benefits: ["Antioxidant", "Supports cellular energy"], cautions: [] },
+        "azelaic acid": { commonName: "Azelaic Acid", category: "Active", benefits: ["Reduces redness", "Treats acne/rosacea", "Fades hyperpigmentation"], cautions: ["Generally well-tolerated, mild irritation possible"] },
+        "tranexamic acid": { commonName: "Tranexamic Acid", category: "Active", benefits: ["Reduces hyperpigmentation", "Evens skin tone"], cautions: [] },
+        "alpha arbutin": { commonName: "Alpha Arbutin", category: "Active", benefits: ["Brightens skin", "Fades hyperpigmentation"], cautions: [] },
+        "kojic acid": { commonName: "Kojic Acid", category: "Active", benefits: ["Brightens skin", "Fades hyperpigmentation"], cautions: ["Potential for irritation in some"] },
+        "licorice root extract": { commonName: "Licorice Root Extract", category: "Active", benefits: ["Brightens skin", "Anti-inflammatory", "Soothing"], cautions: [] },
+        "centella asiatica": { commonName: "Centella Asiatica (Cica)", category: "Active/Soothing", benefits: ["Calming", "Healing", "Anti-inflammatory", "Supports collagen"], cautions: [] },
+        "allantoin": { commonName: "Allantoin", category: "Active/Soothing", benefits: ["Soothing", "Healing", "Moisturizing"], cautions: [] },
+        "sulfur": { commonName: "Sulfur", category: "Active", benefits: ["Treats acne", "Reduces oil", "Anti-bacterial"], cautions: ["Can be drying", "Strong odor"] },
+        "tea tree oil": { commonName: "Tea Tree Oil", category: "Active", benefits: ["Antimicrobial", "Anti-inflammatory", "Good for acne"], cautions: ["Must be diluted", "Potential for irritation/allergy"] },
+        "zinc pca": { commonName: "Zinc PCA", category: "Active", benefits: ["Reduces oil production", "Anti-bacterial", "Anti-inflammatory"], cautions: [] },
+
+        // --- Cleansing Agents (Common mild ones) ---
+        "coco-glucoside": { commonName: "Coco-Glucoside", category: "Cleansing Agent", benefits: ["Gentle surfactant", "Derived from coconut"], cautions: [] },
+        "decyl glucoside": { commonName: "Decyl Glucoside", category: "Cleansing Agent", benefits: ["Gentle surfactant", "Derived from plants"], cautions: [] },
+        "sodium cocoyl isethionate": { commonName: "Sodium Cocoyl Isethionate", category: "Cleansing Agent", benefits: ["Gentle surfactant", "Sulfate-free"], cautions: [] },
+        "sodium lauryl sulfate": { commonName: "Sodium Lauryl Sulfate (SLS)", category: "Cleansing Agent", benefits: ["Strong foaming agent"], cautions: ["Can be stripping/irritating for sensitive skin"] },
+        "sodium laureth sulfate": { commonName: "Sodium Laureth Sulfate (SLES)", category: "Cleansing Agent", benefits: ["Foaming agent"], cautions: ["Milder than SLS, but can still be stripping for some"] },
+
+        // --- Preservatives ---
+        "phenoxyethanol": { commonName: "Phenoxyethanol", category: "Preservative", benefits: ["Prevents bacterial growth", "Broad-spectrum"], cautions: ["Generally safe, but some rare sensitivities"] },
+        "sodium benzoate": { commonName: "Sodium Benzoate", category: "Preservative", benefits: ["Prevents microbial growth"], cautions: [] },
+        "potassium sorbate": { commonName: "Potassium Sorbate", category: "Preservative", benefits: ["Prevents mold/yeast growth"], cautions: [] },
+        "ethylhexylglycerin": { commonName: "Ethylhexylglycerin", category: "Preservative/Conditioning", benefits: ["Preservative booster", "Skin conditioning"], cautions: [] },
+        "caprylyl glycol": { commonName: "Caprylyl Glycol", category: "Preservative/Conditioning", benefits: ["Preservative booster", "Emollient"], cautions: [] },
+        "parfum": { commonName: "Fragrance (Parfum)", category: "Fragrance", benefits: ["Provides scent"], cautions: ["Common irritant for sensitive skin", "Often listed as 'Parfum' or 'Fragrance'"] },
+        "fragrance": { commonName: "Fragrance (Parfum)", category: "Fragrance", benefits: ["Provides scent"], cautions: ["Common irritant for sensitive skin", "Often listed as 'Parfum' or 'Fragrance'"] },
+    };
+
+    // Helper to clean and normalize ingredient names for lookup
+    function normalizeIngredientName(name) {
+        return name.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+    }
+
+    // Function to decode and display ingredients
+    function decodeIngredients() {
+        const rawInput = ingredientListTextarea.value;
+        const ingredients = rawInput.split(/[,;\n\r]+/) // Split by comma, semicolon, or new line
+                                   .map(name => normalizeIngredientName(name))
+                                   .filter(name => name.length > 0); // Remove empty strings
+
+        ingredientResultsDiv.innerHTML = ''; // Clear previous results
+        resultsSection.classList.add('hidden');
+        noIngredientsFoundMessage.classList.add('hidden');
+
+        const foundIngredients = [];
+        const processedNames = new Set(); // To avoid duplicates in display
+
+        ingredients.forEach(normalizedName => {
+            if (ingredientData[normalizedName] && !processedNames.has(normalizedName)) {
+                foundIngredients.push({ inci: normalizedName, data: ingredientData[normalizedName] });
+                processedNames.add(normalizedName);
+            } else {
+                // Check for partial matches or common variations if needed, but for now, exact match
+                // For example, if "sodium hyaluronate" is in data, but user types "hyaluronic acid"
+                // This is handled by having both in the ingredientData keys if they map to the same info.
+            }
+        });
+
+        if (foundIngredients.length > 0) {
+            foundIngredients.forEach(item => {
+                const card = document.createElement('div');
+                card.classList.add('ingredient-card');
+
+                const commonName = item.data.commonName;
+                const inciName = item.inci;
+                const category = item.data.category;
+                const benefits = item.data.benefits;
+                const cautions = item.data.cautions;
+
+                card.innerHTML = `
+                    <h3>
+                        <span class="common-name">${commonName}</span>
+                        <span class="inci-name">(${inciName})</span>
+                    </h3>
+                    <p><strong>Category:</strong> ${category}</p>
+                    <p><strong>Benefits:</strong></p>
+                    <ul class="benefits-list">
+                        ${benefits.length > 0 ? benefits.map(b => `<li>${b}</li>`).join('') : '<li class="no-info">No specific benefits listed in database.</li>'}
+                    </ul>
+                    <p><strong>Cautions/Considerations:</strong></p>
+                    <ul class="cautions-list">
+                        ${cautions.length > 0 ? cautions.map(c => `<li>${c}</li>`).join('') : '<li class="no-info">No specific cautions listed in database.</li>'}
+                    </ul>
+                `;
+                ingredientResultsDiv.appendChild(card);
+            });
+            resultsSection.classList.remove('hidden');
+        } else {
+            noIngredientsFoundMessage.classList.remove('hidden');
+            resultsSection.classList.remove('hidden');
+        }
+    }
+
+    // Function to clear input and results
+    function clearAll() {
+        ingredientListTextarea.value = '';
+        ingredientResultsDiv.innerHTML = '';
+        resultsSection.classList.add('hidden');
+        noIngredientsFoundMessage.classList.add('hidden');
+    }
+
+    // Event Listeners
+    decodeButton.addEventListener('click', decodeIngredients);
+    clearButton.addEventListener('click', clearAll);
+
+    // Initial state
+    resultsSection.classList.add('hidden');
+</script>
