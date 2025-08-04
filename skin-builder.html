@@ -11,23 +11,22 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #fcfcfc; /* Soft off-white background */
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Align to top for better scrolling */
+            /* Removed fixed flexbox centering to allow natural scrolling */
             min-height: 100vh; /* Ensure it takes at least full viewport height */
             margin: 0;
             padding: 1rem;
             box-sizing: border-box;
         }
 
-        /* Container styles */
+        /* Container styles - Updated for full responsiveness */
         .routine-builder-container {
             background-color: #ffffff; /* White card background */
             border-radius: 1.5rem; /* More rounded corners */
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05); /* Soft shadow */
             padding: 2rem;
-            max-width: 700px; /* Adjusted max width for readability and fit */
+            max-width: 800px; /* Increased max width for better desktop experience */
             width: 100%; /* Full width on smaller screens */
+            margin: 0 auto; /* Center the container */
             text-align: center;
             border: 2px solid #b37e76; /* Dusty rose border */
             box-sizing: border-box; /* Include padding and border in the element's total width and height */
@@ -461,28 +460,9 @@
         const calculateRoutineButton = document.getElementById('calculateRoutineButton');
         const loadingIndicator = document.getElementById('loadingIndicator');
         const resultsSection = document.getElementById('resultsSection');
-        const resultsHeading = document.getElementById('resultsHeading');
         const routineContent = document.getElementById('routineContent');
         const messageBox = document.getElementById('messageBox');
-        const routineBuilderContainer = document.querySelector('.routine-builder-container'); // Get the main container
-
-        // --- Helper Functions ---
-
-        /**
-         * Adjusts the height of the main container to fit its content.
-         */
-        function adjustContainerHeight() {
-            // Use a small delay to ensure all content (especially dynamic) has rendered
-            setTimeout(() => {
-                const body = document.body;
-                const html = document.documentElement;
-                // Get the maximum height of the document
-                const documentHeight = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight );
-                // Set the height of the main container to this height, plus a bit of buffer
-                routineBuilderContainer.style.height = `${documentHeight + 50}px`;
-            }, 100); // Short delay
-        }
-
+        
         /**
          * Displays a message in the message box.
          * @param {string} message - The message to display.
@@ -609,7 +589,6 @@
                     primaryType = 'Combination';
                 }
             }
-
 
             const concerns = [];
             if (scores.Sensitive >= 2) concerns.push('Sensitive'); // Sensitive is a modifier
@@ -855,7 +834,6 @@
                     // Scroll to the results section smoothly
                     resultsSection.scrollIntoView({ behavior: 'smooth' });
                     
-                    adjustContainerHeight(); // Adjust container height to fit new content
                 }, 1500); // Simulate network delay
                 
             } catch (error) {
@@ -868,4 +846,5 @@
     </script>
 </body>
 </html>
+
 
