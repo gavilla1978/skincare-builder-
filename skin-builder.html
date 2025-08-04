@@ -8,103 +8,96 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom styles for the Inter font and overall body */
-        html, body {
-            font-family: 'Inter', sans-serif;
-            background-color: #fef3e7; /* Light peachy background from your brand */
-            margin: 0;
-            padding: 0.5rem; /* Reduced padding for a more compact widget */
-            box-sizing: border-box;
-            height: auto !important; /* Force html and body to grow with content */
-            min-height: 1px !important; /* Ensure no minimum height is forced */
-            overflow-y: auto !important; /* Allow vertical scrolling if content overflows */
-        }
         body {
-            display: block; /* Override any default flex from previous versions */
-            text-align: center; /* Center the container */
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfcfc; /* Soft off-white background */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for better scrolling */
+            min-height: 100vh; /* Ensure it takes at least full viewport height */
+            margin: 0;
+            padding: 1rem;
+            box-sizing: border-box;
         }
-
 
         /* Container styles */
         .routine-builder-container {
             background-color: #ffffff; /* White card background */
             border-radius: 1.5rem; /* More rounded corners */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
-            padding: 1.5rem; /* Reduced padding for a more compact widget */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05); /* Soft shadow */
+            padding: 2rem;
             max-width: 700px; /* Adjusted max width for readability and fit */
             width: 100%; /* Full width on smaller screens */
             text-align: center;
-            border: 2px solid #2a9d8f; /* Teal border */
+            border: 2px solid #b37e76; /* Dusty rose border */
             box-sizing: border-box; /* Include padding and border in the element's total width and height */
-            margin: 0 auto; /* Center the container horizontally */
-            height: auto !important; /* Force height to be auto and expand */
-            min-height: auto !important; /* Ensure no minimum height is forced */
         }
 
         .builder-title {
-            color: #e76f51; /* Peachy-orange for title */
-            font-size: 2.25rem; /* Slightly reduced font size for widget feel */
+            color: #c89b94; /* Muted rose for title */
+            font-size: 2.5rem;
             font-weight: 800;
-            margin-bottom: 1rem; /* Reduced margin */
+            margin-bottom: 1.5rem;
             line-height: 1.2;
         }
 
         .builder-subtitle {
-            color: #4a4a4a;
-            font-size: 1rem; /* Slightly reduced font size for widget feel */
-            margin-bottom: 1.5rem; /* Reduced margin */
+            color: #555555; /* Dark gray for subtitle */
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
         }
 
         .question-group {
-            margin-bottom: 1.5rem; /* Reduced margin */
+            margin-bottom: 2rem;
             text-align: left;
-            padding: 0.75rem; /* Reduced padding */
-            border: 1px solid #d1d5db;
+            padding: 1rem;
+            border: 1px solid #e0e0e0;
             border-radius: 0.75rem;
-            background-color: #f9fafb;
+            background-color: #fdfdfd;
         }
 
         .question-group h3 {
-            font-size: 1.25rem; /* Slightly reduced font size */
+            font-size: 1.35rem;
             font-weight: 700;
-            color: #2a9d8f; /* Teal for question headings */
-            margin-bottom: 0.75rem; /* Reduced margin */
+            color: #b37e76; /* Dusty rose for question headings */
+            margin-bottom: 1rem;
         }
 
         .question-group p {
-            font-size: 1rem; /* Slightly reduced font size */
-            color: #333;
-            margin-bottom: 0.75rem; /* Reduced margin */
+            font-size: 1.1rem;
+            color: #333333;
+            margin-bottom: 1rem;
         }
 
         .radio-option {
             display: flex;
             align-items: center;
-            margin-bottom: 0.5rem; /* Reduced margin */
+            margin-bottom: 0.75rem;
             cursor: pointer;
-            padding: 0.4rem; /* Reduced padding */
+            padding: 0.5rem;
             border-radius: 0.5rem;
             transition: background-color 0.2s ease;
         }
         .radio-option:hover {
-            background-color: #f0f0f0;
+            background-color: #f7e9e7; /* Light rose on hover */
         }
 
         .radio-option input[type="radio"] {
-            margin-right: 0.6rem; /* Reduced margin */
-            accent-color: #e76f51; /* Peachy-orange for radio buttons */
-            transform: scale(1.1); /* Slightly smaller radio buttons */
+            margin-right: 0.75rem;
+            accent-color: #c89b94; /* Muted rose for radio buttons */
+            transform: scale(1.2); /* Slightly larger radio buttons */
         }
 
         .radio-option label {
-            font-size: 0.95rem; /* Slightly reduced font size */
+            font-size: 1rem;
             color: #4a4a4a;
             cursor: pointer;
             flex-grow: 1; /* Allows label to take up space */
         }
 
         .calculate-btn {
-            background-color: #e76f51; /* Peachy-orange button */
-            color: white;
+            background-color: #c89b94; /* Muted rose button */
+            color: #ffffff;
             padding: 0.75rem 2.5rem;
             border-radius: 0.75rem;
             font-size: 1.2rem;
@@ -113,11 +106,12 @@
             transition: background-color 0.2s ease-in-out, transform 0.1s ease, box-shadow 0.2s ease;
             border: none;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 1.5rem; /* Reduced margin */
+            margin-top: 2rem;
         }
 
         .calculate-btn:hover {
-            background-color: #d65a40; /* Darker peach on hover */
+            background-color: #b37e76; /* Darker rose on hover */
+            color: white;
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
@@ -130,15 +124,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 1.5rem; /* Reduced margin */
-            color: #2a9d8f; /* Teal */
+            margin-top: 2rem;
+            color: #b37e76; /* Dusty rose */
             font-weight: 600;
             font-size: 1.1rem;
         }
 
         .spinner {
             border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left-color: #2a9d8f; /* Teal spinner */
+            border-left-color: #b37e76; /* Dusty rose spinner */
             border-radius: 50%;
             width: 24px;
             height: 24px;
@@ -152,49 +146,49 @@
         }
 
         .results-section {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 2px dashed #f4a261; /* Sun orange dashed line */
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 2px dashed #c89b94; /* Muted rose dashed line */
             text-align: left;
         }
 
         .results-heading {
-            font-size: 1.6rem; /* Slightly reduced font size */
+            font-size: 1.8rem;
             font-weight: 700;
-            color: #e76f51; /* Peachy-orange for results heading */
-            margin-bottom: 1rem; /* Reduced margin */
+            color: #b37e76; /* Dusty rose for results heading */
+            margin-bottom: 1.5rem;
             text-align: center;
         }
 
         .routine-section h4 {
-            font-size: 1.3rem; /* Slightly reduced font size */
+            font-size: 1.4rem;
             font-weight: 700;
-            color: #2a9d8f; /* Teal for routine subheadings */
-            margin-top: 1.25rem; /* Reduced margin */
-            margin-bottom: 0.6rem; /* Reduced margin */
+            color: #c89b94; /* Muted rose for routine subheadings */
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
         }
 
         .routine-list {
             list-style: none; /* Remove default list style */
             padding-left: 0;
-            margin-bottom: 0.75rem; /* Reduced margin */
+            margin-bottom: 1rem;
         }
 
         .routine-list li {
-            background-color: #fff7ed; /* Lighter peach for list items */
-            border: 1px solid #f4a261; /* Sun orange border */
+            background-color: #f7e9e7; /* Light rose for list items */
+            border: 1px solid #b37e76; /* Dusty rose border */
             border-radius: 0.75rem;
-            padding: 0.6rem 0.8rem; /* Reduced padding */
-            margin-bottom: 0.4rem; /* Reduced margin */
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
-            font-size: 0.95rem; /* Slightly reduced font size */
+            font-size: 1rem;
             color: #4a4a4a;
         }
         .routine-list li::before {
-            content: '✨'; /* Sparkle emoji for list items */
-            margin-right: 0.6rem; /* Reduced margin */
-            font-size: 1.1rem; /* Slightly reduced font size */
+            content: '🌹'; /* Rose emoji for list items */
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
         }
 
         .message-box {
@@ -212,18 +206,18 @@
         }
 
         .disclaimer-box {
-            background-color: #fff7ed; /* Lighter peach for disclaimer */
-            border: 1px solid #f4a261; /* Sun orange border */
+            background-color: #f7e9e7; /* Lighter rose for disclaimer */
+            border: 1px solid #b37e76; /* Dusty rose border */
             border-radius: 0.75rem;
             padding: 1rem;
-            margin-top: 2rem; /* Reduced margin */
+            margin-top: 2.5rem; /* Space above it */
             font-size: 0.85rem;
-            color: #e76f51; /* Peachy-orange text */
+            color: #b37e76; /* Dusty rose text */
             text-align: left;
             line-height: 1.4;
         }
         .disclaimer-box strong {
-            color: #d65a40; /* Darker peach for emphasis */
+            color: #c89b94; /* Muted rose for emphasis */
         }
 
         /* Responsive adjustments for smaller screens */
@@ -232,36 +226,36 @@
                 padding: 1rem;
             }
             .builder-title {
-                font-size: 1.75rem; /* Adjusted for mobile */
+                font-size: 2rem;
             }
             .builder-subtitle {
-                font-size: 0.9rem; /* Adjusted for mobile */
+                font-size: 1rem;
             }
             .question-group {
-                padding: 0.6rem; /* Adjusted for mobile */
+                padding: 0.75rem;
             }
             .question-group h3 {
-                font-size: 1.1rem; /* Adjusted for mobile */
+                font-size: 1.2rem;
             }
             .question-group p {
-                font-size: 0.9rem; /* Adjusted for mobile */
+                font-size: 1rem;
             }
             .radio-option label {
-                font-size: 0.9rem; /* Adjusted for mobile */
+                font-size: 0.95rem;
             }
             .calculate-btn {
-                font-size: 1rem; /* Adjusted for mobile */
-                padding: 0.6rem 1.5rem; /* Adjusted for mobile */
+                font-size: 1.1rem;
+                padding: 0.75rem 2rem;
             }
             .results-heading {
-                font-size: 1.4rem; /* Adjusted for mobile */
+                font-size: 1.5rem;
             }
             .routine-section h4 {
-                font-size: 1.1rem; /* Adjusted for mobile */
+                font-size: 1.2rem;
             }
             .routine-list li {
-                font-size: 0.85rem; /* Adjusted for mobile */
-                padding: 0.5rem 0.7rem; /* Adjusted for mobile */
+                font-size: 0.9rem;
+                padding: 0.6rem 0.8rem;
             }
             .disclaimer-box {
                 font-size: 0.75rem;
@@ -482,18 +476,10 @@
             setTimeout(() => {
                 const body = document.body;
                 const html = document.documentElement;
-                // Get the maximum height of the document content
-                const contentHeight = Math.max(
-                    body.scrollHeight,
-                    body.offsetHeight,
-                    html.clientHeight,
-                    html.scrollHeight,
-                    html.offsetHeight
-                );
-                // Set the height of the html and body elements to this content height
-                // Add a small buffer (e.g., 20px) to ensure no cutoff
-                html.style.height = `${contentHeight + 20}px`;
-                body.style.height = `${contentHeight + 20}px`;
+                // Get the maximum height of the document
+                const documentHeight = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight );
+                // Set the height of the main container to this height, plus a bit of buffer
+                routineBuilderContainer.style.height = `${documentHeight + 50}px`;
             }, 100); // Short delay
         }
 
@@ -504,7 +490,6 @@
          */
         function showMessage(message, type = 'info') {
             messageBox.textContent = message;
-            // Reset to default for now, can add specific classes later
             messageBox.style.backgroundColor = '#fffbe6';
             messageBox.style.color = '#856404';
             messageBox.style.borderColor = '#ffeeba';
@@ -749,144 +734,101 @@
 
             // Helper to find insertion index for serums/treatments
             const findInsertionIndex = (routine, type) => {
-                let index = -1;
-                if (type === 'morning') {
-                    index = routine.findIndex(item => item.includes('Moisturizer') || item.includes('SPF'));
-                    if (index === -1) index = routine.length; // If no moisturizer/SPF, add at end
-                } else { // evening
-                    index = routine.findIndex(item => item.includes('Moisturizer'));
-                    if (index === -1) index = routine.length; // If no moisturizer, add at end
+                let index = routine.findIndex(item => item.includes('Serum') || item.includes('Moisturizer') || item.includes('Toner'));
+                if (index === -1) {
+                    index = routine.length - 1;
                 }
                 return index;
             };
 
-            // Ensure serums/treatments are placed before moisturizer/SPF, after toner/cleanser
-            // Morning Routine adjustments
-            let currentMorningIndex = morningRoutine.findIndex(item => item.includes('Toner')) + 1;
-            if (currentMorningIndex === 0) currentMorningIndex = morningRoutine.findIndex(item => item.includes('Cleanser')) + 1;
-            if (currentMorningIndex === 0) currentMorningIndex = 0; // Default to start if no cleanser/toner found
+            if (hasAcne) {
+                const acneTreatment = isSensitive ?
+                    'Gentle Acne Treatment (e.g., Azelaic Acid or Bakuchiol) after cleansing.' :
+                    'Acne Treatment (e.g., Benzoyl Peroxide or Salicylic Acid spot treatment).';
+                
+                const morningIndex = findInsertionIndex(morningRoutine, 'Serum');
+                morningRoutine.splice(morningIndex, 0, acneTreatment);
 
-            if (hasAcne && !isSensitive) {
-                const acneTreatmentMorning = 'Acne Treatment (e.g., Benzoyl Peroxide spot treatment)';
-                if (!morningRoutine.includes(acneTreatmentMorning)) {
-                    morningRoutine.splice(currentMorningIndex++, 0, acneTreatmentMorning);
-                }
-            } else if (hasAcne && isSensitive) {
-                const gentleAcneMorning = 'Gentle Acne Spot Treatment (e.g., Azelaic Acid)';
-                if (!morningRoutine.includes(gentleAcneMorning)) {
-                    morningRoutine.splice(currentMorningIndex++, 0, gentleAcneMorning);
-                }
+                const eveningIndex = findInsertionIndex(eveningRoutine, 'Serum');
+                eveningRoutine.splice(eveningIndex, 0, acneTreatment);
             }
 
             if (hasHyperpigmentation) {
-                const brighteningSerum = 'Brightening Serum (e.g., Vitamin C, Alpha Arbutin)';
-                if (!morningRoutine.includes(brighteningSerum)) {
-                    morningRoutine.splice(currentMorningIndex++, 0, brighteningSerum);
+                const brighteningSerum = 'Brightening Serum (e.g., Vitamin C, Alpha Arbutin, or Niacinamide).';
+                const eveningTreatment = isSensitive ? 'Gentle Exfoliant (e.g., Mandelic Acid) 1-2 times per week.' : 'Chemical Exfoliant (AHA/BHA) 2-3 times per week.';
+
+                const morningIndex = findInsertionIndex(morningRoutine, 'Serum');
+                morningRoutine.splice(morningIndex, 0, brighteningSerum);
+                
+                if (!isSensitive) {
+                    const eveningIndex = findInsertionIndex(eveningRoutine, 'Toner');
+                    eveningRoutine.splice(eveningIndex, 0, eveningTreatment);
                 }
             }
 
             if (hasAging) {
-                const peptideSerum = 'Peptide Serum';
-                if (!morningRoutine.includes(peptideSerum)) {
-                    morningRoutine.splice(currentMorningIndex++, 0, peptideSerum);
-                }
+                const agingTreatment = isSensitive ?
+                    'Gentle Retinoid or Bakuchiol (start with 2-3 nights a week).' :
+                    'Retinoid or Retinol Serum (start slow, build up frequency).';
+                const eveningIndex = eveningRoutine.findIndex(item => item.includes('Serum')) + 1;
+                eveningRoutine.splice(eveningIndex, 0, agingTreatment);
             }
 
-            // Evening Routine adjustments
-            let currentEveningIndex = eveningRoutine.findIndex(item => item.includes('Toner')) + 1;
-            if (currentEveningIndex === 0) currentEveningIndex = eveningRoutine.findIndex(item => item.includes('Cleanser')) + 1;
-            if (currentEveningIndex === 0) currentEveningIndex = 0; // Default to start if no cleanser/toner found
-
-            // Retinoid Logic: Ensure only one type is added, prioritizing sensitive
-            let retinoidStep = null;
-            if (isSensitive) {
-                retinoidStep = 'Very gentle Retinoid (if tolerated, with extreme caution)';
-            } else if (hasAcne || hasAging) {
-                retinoidStep = 'Retinoid (start slow! Consult a professional if new to retinoids)';
-            }
-
-            if (retinoidStep) {
-                const existingRetinoidIndex = eveningRoutine.findIndex(item => item.includes('Retinoid'));
-                if (existingRetinoidIndex === -1) {
-                    eveningRoutine.splice(currentEveningIndex++, 0, retinoidStep);
-                } else {
-                    // Replace if a more specific sensitive retinoid is needed
-                    if (isSensitive && !eveningRoutine[existingRetinoidIndex].includes('Very gentle')) {
-                        eveningRoutine[existingRetinoidIndex] = retinoidStep;
-                    }
-                }
-            }
-
-            if (hasAcne && !isSensitive) {
-                const acneTreatmentEvening = 'Acne Treatment (e.g., Salicylic Acid leave-on)';
-                if (!eveningRoutine.includes(acneTreatmentEvening)) {
-                    eveningRoutine.splice(currentEveningIndex++, 0, acneTreatmentEvening);
-                }
-            }
-
-            if (hasHyperpigmentation) {
-                const targetedBrightening = 'Targeted Brightening Treatment (e.g., Niacinamide, Tranexamic Acid)';
-                if (!eveningRoutine.includes(targetedBrightening)) {
-                    eveningRoutine.splice(currentEveningIndex++, 0, targetedBrightening);
-                }
-            }
-
-
+            // --- Generate HTML String ---
             let html = `
-                <p style="font-size: 1.05rem; color: #4a4a4a; margin-bottom: 0.8rem; text-align: center;">Your Skin Profile: <strong style="color: #2a9d8f;">${primaryType}</strong> ${concerns.length > 0 ? `with concerns for: <strong style="color: #2a9d8f;">${concerns.join(', ')}</strong>` : ''}</p>
-
                 <div class="routine-section">
-                    <h4 style="font-size: 1.3rem; font-weight: 700; color: #2a9d8f; margin-top: 1.25rem; margin-bottom: 0.6rem;">☀️ Morning Routine:</h4>
-                    <ul class="routine-list" style="list-style: none; padding-left: 0; margin-bottom: 0.75rem;">
-                        ${morningRoutine.map(step => `<li style="background-color: #fff7ed; border: 1px solid #f4a261; border-radius: 0.75rem; padding: 0.6rem 0.8rem; margin-bottom: 0.4rem; display: flex; align-items: center; font-size: 0.95rem; color: #4a4a4a;">✨ ${step}</li>`).join('')}
+                    <h4>Morning Routine</h4>
+                    <ul class="routine-list">
+                        ${morningRoutine.map(item => `<li>${item}</li>`).join('')}
                     </ul>
                 </div>
-
                 <div class="routine-section">
-                    <h4 style="font-size: 1.3rem; font-weight: 700; color: #2a9d8f; margin-top: 1.25rem; margin-bottom: 0.6rem;">🌙 Evening Routine:</h4>
-                    <ul class="routine-list" style="list-style: none; padding-left: 0; margin-bottom: 0.75rem;">
-                        ${eveningRoutine.map(step => `<li style="background-color: #fff7ed; border: 1px solid #f4a261; border-radius: 0.75rem; padding: 0.6rem 0.8rem; margin-bottom: 0.4rem; display: flex; align-items: center; font-size: 0.95rem; color: #4a4a4a;">✨ ${step}</li>`).join('')}
+                    <h4>Evening Routine</h4>
+                    <ul class="routine-list">
+                        ${eveningRoutine.map(item => `<li>${item}</li>`).join('')}
                     </ul>
                 </div>
-
-                <div class="routine-section">
-                    <h4 style="font-size: 1.3rem; font-weight: 700; color: #2a9d8f; margin-top: 1.25rem; margin-bottom: 0.6rem;">✨ Weekly Boosters & Treatments (1-2 times a week):</h4>
-                    <ul class="routine-list" style="list-style: none; padding-left: 0; margin-bottom: 0.75rem;">
-                        ${weeklyBoosters.map(step => `<li style="background-color: #fff7ed; border: 1px solid #f4a261; border-radius: 0.75rem; padding: 0.6rem 0.8rem; margin-bottom: 0.4rem; display: flex; align-items: center; font-size: 0.95rem; color: #4a4a4a;">✨ ${step}</li>`).join('')}
-                    </ul>
-                </div>
-                <p style="color: #6a6a6a; font-size: 0.9rem; margin-top: 1rem;">Remember to always patch test new products and introduce actives slowly, bestie!</p>
             `;
+            if (weeklyBoosters.length > 0) {
+                html += `
+                    <div class="routine-section">
+                        <h4>Weekly Boosters</h4>
+                        <ul class="routine-list">
+                            ${weeklyBoosters.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
 
             return html;
         }
 
-        // --- Event Listeners ---
-        skincareQuizForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent default form submission
-
-            // Validate all questions are answered
-            const formElements = skincareQuizForm.elements;
-            const answers = {};
+        // --- Event Handlers ---
+        skincareQuizForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Validate that all radio buttons are checked
+            const formElements = e.target.elements;
             let allAnswered = true;
+            const answers = {};
 
-            for (let i = 0; i < formElements.length; i++) {
-                const element = formElements[i];
-                if (element.type === 'radio' && element.name) {
-                    const group = document.getElementsByName(element.name);
-                    const isGroupAnswered = Array.from(group).some(radio => radio.checked);
-                    if (!isGroupAnswered) {
-                        allAnswered = false;
-                        break;
-                    }
-                    if (element.checked) {
-                        answers[element.name] = element.value;
-                    }
+            // Loop through each question group
+            const questionGroups = document.querySelectorAll('.question-group');
+            questionGroups.forEach((group, index) => {
+                const questionName = `q${index + 1}`;
+                const selected = document.querySelector(`input[name="${questionName}"]:checked`);
+                if (!selected) {
+                    allAnswered = false;
+                    // Add a temporary style to highlight the unanswered question
+                    group.style.border = '2px solid red';
+                } else {
+                    answers[questionName] = selected.value;
+                    group.style.border = '1px solid #e0e0e0'; // Reset border color
                 }
-            }
+            });
 
             if (!allAnswered) {
-                showMessage("Please answer all questions to build your personalized routine, bestie!", 'warning');
+                showMessage("Oops! Please answer all the questions to build your routine.");
                 return;
             }
 
@@ -894,39 +836,36 @@
             loadingIndicator.classList.remove('hidden');
             calculateRoutineButton.disabled = true;
             resultsSection.classList.add('hidden');
-            messageBox.classList.remove('show');
-
-            // Simulate a short delay for "thinking"
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            // Calculate scores and determine profile
-            const scores = calculateScores(answers);
-            const skinProfile = determineSkinProfile(scores);
-
-            // Generate and display routine
-            const routineHtml = generateRoutineHTML(skinProfile);
-            resultsHeading.textContent = `Your Personalized Routine, Bestie!`;
-            routineContent.innerHTML = routineHtml;
-
-            // Hide loading and show results
-            loadingIndicator.classList.add('hidden');
-            calculateRoutineButton.disabled = false;
-            resultsSection.classList.remove('hidden');
-            showMessage("Your personalized routine is ready!", 'success');
-
-            // Adjust height after results are shown
-            adjustContainerHeight();
-
-            // Scroll to results
-            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            try {
+                // Determine skin profile
+                const scores = calculateScores(answers);
+                const profile = determineSkinProfile(scores);
+                
+                // Generate and display routine
+                const routineHtml = generateRoutineHTML(profile);
+                routineContent.innerHTML = routineHtml;
+                
+                // Show the results section
+                setTimeout(() => {
+                    loadingIndicator.classList.add('hidden');
+                    resultsSection.classList.remove('hidden');
+                    calculateRoutineButton.disabled = false;
+                    
+                    // Scroll to the results section smoothly
+                    resultsSection.scrollIntoView({ behavior: 'smooth' });
+                    
+                    adjustContainerHeight(); // Adjust container height to fit new content
+                }, 1500); // Simulate network delay
+                
+            } catch (error) {
+                console.error("Error generating routine:", error);
+                loadingIndicator.classList.add('hidden');
+                calculateRoutineButton.disabled = false;
+                showMessage("Something went wrong while building your routine. Please try again!", "error");
+            }
         });
-
-        // Initial height adjustment and a listener for window resize
-        window.addEventListener('load', adjustContainerHeight);
-        window.addEventListener('resize', adjustContainerHeight);
-
-        // --- Initial Setup ---
-        resultsSection.classList.add('hidden'); // Ensure results are hidden on load
     </script>
 </body>
 </html>
+
