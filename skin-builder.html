@@ -11,14 +11,14 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #fcfcfc; /* Soft off-white background */
-            /* Removed fixed flexbox centering to allow natural scrolling */
-            min-height: 100vh; /* Ensure it takes at least full viewport height */
             margin: 0;
             padding: 1rem;
             box-sizing: border-box;
+            /* Ensure the body is at least as tall as its content for accurate height calculation */
+            min-height: 100%;
         }
 
-        /* Container styles - Updated for full responsiveness */
+        /* Container styles - Updated for full responsiveness and a minimum height */
         .routine-builder-container {
             background-color: #ffffff; /* White card background */
             border-radius: 1.5rem; /* More rounded corners */
@@ -30,6 +30,7 @@
             text-align: center;
             border: 2px solid #b37e76; /* Dusty rose border */
             box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            min-height: 700px; /* A fallback min-height to prevent clipping on small iframes */
         }
 
         .builder-title {
@@ -264,7 +265,7 @@
     </style>
 </head>
 <body>
-    <div class="routine-builder-container">
+    <div class="routine-builder-container" id="main-container">
         <h1 class="builder-title">Auntie Esty's Routine Architect</h1>
         <p class="builder-subtitle">Let's build your perfect personalized skincare routine, bestie!</p>
 
@@ -455,6 +456,30 @@
     </div>
 
     <script>
+        // --- Dynamic iframe height script ---
+        // This script will send a message to the parent window with the content's height
+        function sendHeightToParent() {
+            const body = document.body, html = document.documentElement;
+            const height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+            window.parent.postMessage({
+                height: height + 20, // Add a small buffer
+                id: 'skincare-builder-recolored' // Unique ID for this immersive
+            }, '*');
+        }
+
+        // Use a ResizeObserver to automatically detect height changes and send the new height
+        const mainContainer = document.getElementById('main-container');
+        if (window.ResizeObserver && mainContainer) {
+            const resizeObserver = new ResizeObserver(entries => {
+                sendHeightToParent();
+            });
+            resizeObserver.observe(mainContainer);
+        } else {
+            // Fallback for older browsers
+            window.addEventListener('load', sendHeightToParent);
+            window.addEventListener('resize', sendHeightToParent);
+        }
+        
         // --- DOM Elements ---
         const skincareQuizForm = document.getElementById('skincareQuizForm');
         const calculateRoutineButton = document.getElementById('calculateRoutineButton');
@@ -466,9 +491,8 @@
         /**
          * Displays a message in the message box.
          * @param {string} message - The message to display.
-         * @param {string} type - 'success', 'error', 'warning', 'info'
          */
-        function showMessage(message, type = 'info') {
+        function showMessage(message) {
             messageBox.textContent = message;
             messageBox.style.backgroundColor = '#fffbe6';
             messageBox.style.color = '#856404';
@@ -712,8 +736,8 @@
             // --- Add Specific Concern Treatments (Careful Ordering) ---
 
             // Helper to find insertion index for serums/treatments
-            const findInsertionIndex = (routine, type) => {
-                let index = routine.findIndex(item => item.includes('Serum') || item.includes('Moisturizer') || item.includes('Toner'));
+            const findInsertionIndex = (routine) => {
+                let index = routine.findIndex(item => item.includes('Moisturizer') || item.includes('Toner') || item.includes('Serum'));
                 if (index === -1) {
                     index = routine.length - 1;
                 }
@@ -725,10 +749,10 @@
                     'Gentle Acne Treatment (e.g., Azelaic Acid or Bakuchiol) after cleansing.' :
                     'Acne Treatment (e.g., Benzoyl Peroxide or Salicylic Acid spot treatment).';
                 
-                const morningIndex = findInsertionIndex(morningRoutine, 'Serum');
+                const morningIndex = findInsertionIndex(morningRoutine);
                 morningRoutine.splice(morningIndex, 0, acneTreatment);
 
-                const eveningIndex = findInsertionIndex(eveningRoutine, 'Serum');
+                const eveningIndex = findInsertionIndex(eveningRoutine);
                 eveningRoutine.splice(eveningIndex, 0, acneTreatment);
             }
 
@@ -736,11 +760,11 @@
                 const brighteningSerum = 'Brightening Serum (e.g., Vitamin C, Alpha Arbutin, or Niacinamide).';
                 const eveningTreatment = isSensitive ? 'Gentle Exfoliant (e.g., Mandelic Acid) 1-2 times per week.' : 'Chemical Exfoliant (AHA/BHA) 2-3 times per week.';
 
-                const morningIndex = findInsertionIndex(morningRoutine, 'Serum');
+                const morningIndex = findInsertionIndex(morningRoutine);
                 morningRoutine.splice(morningIndex, 0, brighteningSerum);
                 
                 if (!isSensitive) {
-                    const eveningIndex = findInsertionIndex(eveningRoutine, 'Toner');
+                    const eveningIndex = findInsertionIndex(eveningRoutine);
                     eveningRoutine.splice(eveningIndex, 0, eveningTreatment);
                 }
             }
@@ -750,7 +774,11 @@
                     'Gentle Retinoid or Bakuchiol (start with 2-3 nights a week).' :
                     'Retinoid or Retinol Serum (start slow, build up frequency).';
                 const eveningIndex = eveningRoutine.findIndex(item => item.includes('Serum')) + 1;
-                eveningRoutine.splice(eveningIndex, 0, agingTreatment);
+                if (eveningIndex === 0) { // If no serum was found
+                     eveningRoutine.splice(findInsertionIndex(eveningRoutine), 0, agingTreatment);
+                } else {
+                     eveningRoutine.splice(eveningIndex, 0, agingTreatment);
+                }
             }
 
             // --- Generate HTML String ---
@@ -833,18 +861,20 @@
                     
                     // Scroll to the results section smoothly
                     resultsSection.scrollIntoView({ behavior: 'smooth' });
-                    
+                    sendHeightToParent();
                 }, 1500); // Simulate network delay
                 
             } catch (error) {
                 console.error("Error generating routine:", error);
                 loadingIndicator.classList.add('hidden');
                 calculateRoutineButton.disabled = false;
-                showMessage("Something went wrong while building your routine. Please try again!", "error");
+                showMessage("Something went wrong while building your routine. Please try again!");
             }
         });
     </script>
 </body>
 </html>
+
+
 
 
