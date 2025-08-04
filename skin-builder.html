@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auntie Esty's Personalized Skincare Routine Builder</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /*
@@ -103,13 +102,13 @@
         }
 
         .skincare-builder-recolored-container .disclaimer-box {
-            background-color: #f7e9e7;
+            background-color: #b37e76;
             border: 1px solid #b37e76;
-            color: #b37e76;
+            color: #ffffff; /* Changed to white */
         }
         
         .skincare-builder-recolored-container .disclaimer-box strong {
-            color: #c89b94;
+            color: #f7e9e7; /* Adjusted for readability */
         }
         /*
          * This style is for the animated spinner,
@@ -139,7 +138,6 @@
             <p class="text-lg md:text-xl text-gray-600 mb-8">Let's build your perfect personalized skincare routine, bestie!</p>
 
             <form id="skincareQuizForm" class="space-y-8">
-                <!-- Section 1: Oiliness & Dryness -->
                 <div class="question-group text-left p-4 rounded-xl">
                     <h3 class="mb-4 md:text-2xl">Section 1: Oiliness & Dryness</h3>
                     
@@ -210,7 +208,6 @@
                     </div>
                 </div>
 
-                <!-- Section 2: Sensitivity -->
                 <div class="question-group text-left p-4 rounded-xl">
                     <h3 class="mb-4 md:text-2xl">Section 2: Sensitivity</h3>
                     
@@ -255,7 +252,6 @@
                     </div>
                 </div>
 
-                <!-- Section 3: Specific Concerns -->
                 <div class="question-group text-left p-4 rounded-xl">
                     <h3 class="mb-4 md:text-2xl">Section 3: Specific Concerns</h3>
                     
@@ -337,11 +333,9 @@
             <div id="resultsSection" class="results-section mt-10 pt-8 text-left hidden">
                 <h2 class="results-heading mb-6 text-center">Your Personalized Routine, Bestie!</h2>
                 <div id="routineContent">
-                    <!-- Routine details will be injected here -->
-                </div>
+                    </div>
             </div>
 
-            <!-- Updated Disclaimer Box -->
             <div class="disclaimer-box rounded-xl p-4 mt-10 text-sm text-left leading-relaxed">
                 <p><strong>Auntie Esty's Wisdom:</strong> Please read all information carefully. The advice provided on this website and in our products is for informational purposes only and is not a substitute for professional medical advice. Always consult with a qualified healthcare professional or licensed dermatologist for specific skin conditions or concerns.</p>
                 <br>
@@ -517,102 +511,111 @@
                     weeklyBoosters = ['Cream or Gel Hydrating Mask (for intense moisture).', 'Nourishing Facial Oil (can be added to moisturizer).'];
                     break;
                 case 'Oily':
-                    morningRoutine = ['Foaming or Gel Cleanser', 'Balancing/Exfoliating Toner (e.g., with Salicylic Acid or Witch Hazel, if tolerated)', 'Lightweight Hydrating Serum (non-comedogenic)', 'Oil-Free Moisturizer', 'Oil-Free Broad-Spectrum SPF 30+'];
-                    eveningRoutine = ['Double Cleanse (Oil Cleanser then Gel Cleanser)', 'Balancing/Exfoliating Toner', 'Lightweight, Non-Comedogenic Moisturizer'];
-                    weeklyBoosters = ['Clay Mask (for oil absorption and pore cleansing).', 'Salicylic Acid Mask (for targeted breakout treatment, if applicable).'];
+                    morningRoutine = ['Foaming or Gel Cleanser (with Salicylic Acid or Glycolic Acid)', 'Oil-Controlling Toner (e.g., with Witch Hazel or Niacinamide)', 'Lightweight Antioxidant Serum (e.g., Vitamin C)', 'Oil-Free Gel Moisturizer', 'Broad-Spectrum SPF 30+'];
+                    eveningRoutine = ['Foaming or Gel Cleanser', 'Exfoliating Toner (e.g., with BHA or AHA, 2-3 times per week)', 'Retinoid or Niacinamide Serum', 'Lightweight Gel Moisturizer'];
+                    weeklyBoosters = ['Clay Mask (for deep cleansing and oil absorption).', 'Salicylic Acid Spot Treatment as needed.'];
                     break;
                 case 'Combination':
-                    morningRoutine = ['Gentle Foaming Cleanser', 'Balancing Toner (e.g., with Niacinamide or light AHAs if tolerated)', 'Antioxidant Serum (e.g., Vitamin C for brightening)', 'Lightweight Moisturizer (gel-cream for T-zone, slightly richer for dry areas)', 'Broad-Spectrum SPF 30+'];
-                    eveningRoutine = ['Double Cleanse (Oil Cleanser then Gentle Foaming Cleanser)', 'Exfoliating Toner (e.g., AHA/BHA blend, start slow)', 'Moisturizer'];
-                    weeklyBoosters = ['Brightening Mask (e.g., with Vitamin C, Glycolic Acid, or enzymes).', 'Clay Mask (for oily T-zone, applied only where needed).'];
+                    morningRoutine = ['Gel or Cream Cleanser', 'Balancing Toner (e.g., with Niacinamide)', 'Antioxidant Serum (e.g., Vitamin C)', 'Lightweight Moisturizer (can use a richer one on dry areas)', 'Broad-Spectrum SPF 30+'];
+                    eveningRoutine = ['Gentle Cleanser', 'Balancing Toner (focus on T-zone)', 'Hydrating Serum (e.g., Hyaluronic Acid)', 'Moisturizer'];
+                    weeklyBoosters = ['Clay Mask on the T-zone and a Hydrating Mask on the cheeks.', 'AHA/BHA Exfoliant 2 times per week.'];
                     break;
             }
 
-            // Adjust routines based on specific concerns
+            // Adjustments based on concerns
             if (isSensitive) {
-                morningRoutine = morningRoutine.map(step => step.replace('Cleanser', 'Soothing Cleanser').replace('Toner', 'Calming Toner').replace('Serum', 'Barrier Repair Serum').replace('Exfoliant', 'Gentle Exfoliant'));
-                eveningRoutine = eveningRoutine.map(step => step.replace('Cleanser', 'Soothing Cleanser').replace('Toner', 'Calming Toner').replace('Serum', 'Barrier Repair Serum'));
-                weeklyBoosters.push('Calming Sheet Mask (e.g., with Centella Asiatica, Green Tea) to reduce redness.');
+                // Adjusting base routine for sensitivity
+                if (primaryType === 'Oily' || primaryType === 'Combination') {
+                    morningRoutine[0] = 'Gentle, pH-balanced Cleanser';
+                    eveningRoutine[0] = 'Gentle, pH-balanced Cleanser';
+                }
+                // Avoid harsh active ingredients
+                morningRoutine = morningRoutine.filter(item => !item.includes('Vitamin C'));
+                eveningRoutine = eveningRoutine.map(item => {
+                    if (item.includes('Exfoliating Toner') || item.includes('Retinoid')) {
+                        return 'Soothing Serum (e.g., Centella Asiatica or Green Tea)';
+                    }
+                    return item;
+                });
+                weeklyBoosters = ['Calming/Soothing Mask.', 'Always patch test new products.'];
+                morningRoutine.splice(1, 0, 'Soothing Serum (e.g., Centella Asiatica)');
             }
-
             if (hasAcne) {
-                morningRoutine.splice(1, 0, 'Acne Treatment (e.g., Benzoyl Peroxide or Salicylic Acid spot treatment)');
-                eveningRoutine.splice(1, 0, 'Acne Treatment (e.g., Salicylic Acid or Retinoid, if not sensitive)');
-                if (!isSensitive) {
-                    weeklyBoosters.push('BHA Exfoliant or Mask (for deep pore cleansing).');
-                }
+                eveningRoutine.splice(2, 0, isSensitive ? 'Azelaic Acid or Bakuchiol Serum' : 'Salicylic Acid or Benzoyl Peroxide Treatment');
+                weeklyBoosters.push('Spot treatments as needed.', 'Acne-fighting mask (e.g., Sulfur or Salicylic Acid mask).');
             }
-
             if (hasHyperpigmentation) {
-                morningRoutine.splice(2, 0, 'Brightening Serum (e.g., with Vitamin C, Niacinamide, or Alpha Arbutin)');
-                eveningRoutine.splice(2, 0, 'Targeted Treatment (e.g., with Azelaic Acid or Retinoid, if not sensitive)');
+                morningRoutine.splice(2, 0, 'Vitamin C Serum (if not sensitive)');
+                eveningRoutine.splice(2, 0, isSensitive ? 'Azelaic Acid or Niacinamide Serum' : 'Retinoid or Alpha Arbutin Serum');
+                weeklyBoosters.push('Brightening Mask (e.g., Vitamin C or Licorice Root).');
             }
-
             if (hasAging) {
-                eveningRoutine.splice(2, 0, 'Anti-Aging Serum (e.g., Retinoid, Peptide, or Growth Factor Serum)');
-                if (!hasAcne) { // Retinoids can be used for both, but if acne is a concern, it's already there
-                    weeklyBoosters.push('Anti-Aging Mask (e.g., Retinol or Collagen-boosting mask).');
-                }
+                eveningRoutine.splice(2, 0, 'Retinoid or Peptides Serum');
+                weeklyBoosters.push('Gentle Exfoliant (AHA/Glycolic Acid) 1-2 times per week.');
             }
+            // Remove duplicates and combine similar steps
+            morningRoutine = [...new Set(morningRoutine)];
+            eveningRoutine = [...new Set(eveningRoutine)];
+            weeklyBoosters = [...new Set(weeklyBoosters)];
 
-            // Generate HTML for routines
-            let html = `<div class="mb-8">`;
-            html += `<p class="text-base text-gray-700 font-bold mb-4">You have a <span class="text-[#c89b94]">${primaryType}</span> skin type with concerns including: <span class="text-[#c89b94]">${concerns.length > 0 ? concerns.join(', ') : 'None'}.</span></p>`;
-            html += `<div class="routine-section mb-6"><h4>Morning Routine</h4><ul class="routine-list mt-2 space-y-2 text-sm">${morningRoutine.map(step => `<li class="p-3 rounded-lg border border-[#b37e76]">${step}</li>`).join('')}</ul></div>`;
-            html += `<div class="routine-section mb-6"><h4>Evening Routine</h4><ul class="routine-list mt-2 space-y-2 text-sm">${eveningRoutine.map(step => `<li class="p-3 rounded-lg border border-[#b37e76]">${step}</li>`).join('')}</ul></div>`;
-            html += `<div class="routine-section"><h4>Weekly Boosters & Tips</h4><ul class="routine-list mt-2 space-y-2 text-sm">${weeklyBoosters.map(step => `<li class="p-3 rounded-lg border border-[#b37e76]">${step}</li>`).join('')}</ul></div>`;
-            html += `</div>`;
+            const listItems = (items) => items.map(item => `<li class="p-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-700">${item}</li>`).join('');
 
-            return html;
+            return `
+                <div class="routine-section mb-6">
+                    <h4 class="mb-4">Morning Routine</h4>
+                    <ul class="space-y-3 routine-list">
+                        ${listItems(morningRoutine)}
+                    </ul>
+                </div>
+                <div class="routine-section mb-6">
+                    <h4 class="mb-4">Evening Routine</h4>
+                    <ul class="space-y-3 routine-list">
+                        ${listItems(eveningRoutine)}
+                    </ul>
+                </div>
+                <div class="routine-section">
+                    <h4 class="mb-4">Weekly Boosters & Tips</h4>
+                    <ul class="space-y-3 routine-list">
+                        ${listItems(weeklyBoosters)}
+                    </ul>
+                </div>
+                <div class="message-box rounded-xl p-4 mt-6 text-sm" style="background-color: #fffbe6; color: #856404; border: 1px solid #ffeeba;">
+                    <p><strong>A note from Auntie Esty:</strong> Listen to your skin, bestie! If something feels irritating, scale back or discontinue use. The key to a great routine is consistency and gentleness.</p>
+                </div>
+            `;
         }
 
-
-        // --- Event Listeners and Main Logic ---
-        skincareQuizForm.addEventListener('submit', async function (event) {
+        // --- Event Listener for Form Submission ---
+        skincareQuizForm.addEventListener('submit', function(event) {
             event.preventDefault();
             
-            // Hide previous results and show loading indicator
-            resultsSection.classList.add('hidden');
-            loadingIndicator.classList.remove('hidden');
-
             const formData = new FormData(skincareQuizForm);
             const answers = Object.fromEntries(formData.entries());
-            
-            // Check if all questions are answered
-            if (Object.keys(answers).length !== 8) {
-                loadingIndicator.classList.add('hidden');
-                showMessage('Please answer all the questions to build your routine, bestie!');
+
+            if (Object.keys(answers).length < 8) {
+                showMessage("Please answer all questions before building your routine.");
                 return;
             }
 
-            // Simulate API call delay with setTimeout
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            // Hide form, show loading spinner
+            skincareQuizForm.classList.add('hidden');
+            loadingIndicator.classList.remove('hidden');
+            resultsSection.classList.add('hidden');
 
-            const scores = calculateScores(answers);
-            const profile = determineSkinProfile(scores);
-            const routineHtml = generateRoutineHTML(profile);
+            setTimeout(() => {
+                const scores = calculateScores(answers);
+                const profile = determineSkinProfile(scores);
+                routineContent.innerHTML = generateRoutineHTML(profile);
 
-            routineContent.innerHTML = routineHtml;
-            resultsSection.classList.remove('hidden');
-            loadingIndicator.classList.add('hidden');
-            sendHeightToParent(); // Adjust iframe height after showing results
-        });
+                // Hide spinner, show results
+                loadingIndicator.classList.add('hidden');
+                resultsSection.classList.remove('hidden');
+                sendHeightToParent();
 
-        // Add event listeners to radio options to style them on click
-        const radioOptions = document.querySelectorAll('.radio-option');
-        radioOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                const radio = this.querySelector('input[type="radio"]');
-                if (radio) {
-                    radio.checked = true;
-                }
-            });
+                // Scroll to the results
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 2000); // Simulate a network request
         });
     </script>
 </body>
 </html>
-
-
-
-
-
