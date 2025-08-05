@@ -283,7 +283,9 @@
                             ]
                         }]
                     };
-                    const apiKey = "";
+                    // IMPORTANT: Replace this placeholder with your actual Gemini API key if you're hosting this app yourself.
+                    // You can get a key for free at https://ai.google.dev/
+                    const apiKey = ""; 
                     const visionApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
                     const visionResponse = await fetchWithExponentialBackoff(visionApiUrl, {
                         method: 'POST',
@@ -331,6 +333,8 @@
                     }
                 };
 
+                // IMPORTANT: Replace this placeholder with your actual Gemini API key if you're hosting this app yourself.
+                // You can get a key for free at https://ai.google.dev/
                 const apiKey = "";
                 const decodeApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
                 
@@ -343,8 +347,8 @@
                 const decodeResult = await decodeResponse.json();
                 
                 if (decodeResult.candidates && decodeResult.candidates.length > 0 &&
-                    decodeResult[0].content && decodeResult[0].content.parts &&
-                    decodeResult[0].content.parts.length > 0) {
+                    decodeResult.candidates[0].content && decodeResult.candidates[0].content.parts &&
+                    decodeResult.candidates[0].content.parts.length > 0) {
                     
                     const jsonResponse = decodeResult.candidates[0].content.parts[0].text;
                     const parsedJson = JSON.parse(jsonResponse);
@@ -367,5 +371,7 @@
     </script>
 </body>
 </html>
+
+
 
 
