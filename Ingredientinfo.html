@@ -211,6 +211,9 @@
                     await new Promise(res => setTimeout(res, delay));
                     return fetchWithExponentialBackoff(url, options, retries - 1, delay * 2);
                 }
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
                 return response;
             } catch (error) {
                 if (retries > 0) {
@@ -265,7 +268,7 @@
                     });
 
                     // Step 1: Extract text from image
-                    const visionPrompt = "Extract the full ingredient list from the following image. List each ingredient on a new line and include only the ingredient name itself, without any additional text or commentary.";
+                    const visionPrompt = "Extract all the text from the following image. Do not add any extra commentary or formatting.";
                     const visionPayload = {
                         contents: [{
                             role: "user",
@@ -340,8 +343,8 @@
                 const decodeResult = await decodeResponse.json();
                 
                 if (decodeResult.candidates && decodeResult.candidates.length > 0 &&
-                    decodeResult.candidates[0].content && decodeResult.candidates[0].content.parts &&
-                    decodeResult.candidates[0].content.parts.length > 0) {
+                    decodeResult[0].content && decodeResult[0].content.parts &&
+                    decodeResult[0].content.parts.length > 0) {
                     
                     const jsonResponse = decodeResult.candidates[0].content.parts[0].text;
                     const parsedJson = JSON.parse(jsonResponse);
