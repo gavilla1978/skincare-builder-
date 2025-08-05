@@ -14,11 +14,12 @@
             background-color: #EAD6D2; /* Solid soft rose background color */
             overflow-x: hidden; /* Prevents horizontal scrollbar */
         }
-        
+
         .skincare-builder-recolored-container {
             font-family: 'Inter', sans-serif;
             background-color: transparent;
             padding-bottom: 5rem; /* Added extra padding to the bottom */
+            min-height: 100vh; /* Ensures the initial height is full screen */
             /* Removed min-height: 100vh to allow the container to grow with content */
         }
 
@@ -357,12 +358,35 @@
 
     <script>
         // --- DOM Elements ---
+        const mainContainer = document.getElementById('main-container');
         const skincareQuizForm = document.getElementById('skincareQuizForm');
         const calculateRoutineButton = document.getElementById('calculateRoutineButton');
         const loadingIndicator = document.getElementById('loadingIndicator');
         const resultsSection = document.getElementById('resultsSection');
         const routineContent = document.getElementById('routineContent');
         const messageBox = document.getElementById('messageBox');
+
+        // --- Helper Function to Communicate with Parent Frame ---
+        function sendHeightToParent() {
+            if (window.parent) {
+                const height = mainContainer.scrollHeight;
+                window.parent.postMessage({
+                    id: 'skincare-builder-recolored', // Must match the ID in the parent script
+                    height: height
+                }, '*');
+            }
+        }
+
+        // --- Initial call to set the height and then listen for resize ---
+        window.onload = function() {
+            sendHeightToParent();
+            window.addEventListener('resize', sendHeightToParent);
+        };
+        
+        // --- Intercept all changes in the DOM and send the height to the parent ---
+        const observer = new MutationObserver(sendHeightToParent);
+        observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+
 
         /**
          * Displays a message in the message box.
@@ -374,6 +398,7 @@
             setTimeout(() => {
                 messageBox.classList.add('hidden');
             }, 5000);
+            sendHeightToParent();
         }
 
         /**
@@ -626,6 +651,10 @@
                 // Display results
                 routineContent.innerHTML = routineHTML;
                 resultsSection.classList.remove('hidden');
+                
+                // After displaying content, send the new height to the parent
+                sendHeightToParent();
+
             } catch (error) {
                 console.error("Failed to generate routine:", error);
                 showMessage("Oops! Something went wrong. Please try again.");
@@ -633,6 +662,9 @@
                 // Hide loading spinner and re-enable button
                 loadingIndicator.classList.add('hidden');
                 calculateRoutineButton.disabled = false;
+                
+                // Send the new height again in case the loading spinner was different
+                sendHeightToParent();
             }
         });
         
