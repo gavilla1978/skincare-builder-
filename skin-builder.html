@@ -19,7 +19,7 @@
             font-family: 'Inter', sans-serif;
             background-color: transparent;
             padding-bottom: 5rem; /* Added extra padding to the bottom */
-            min-height: 100vh;
+            /* Removed min-height: 100vh to allow the container to grow with content */
         }
 
         .skincare-builder-recolored-container .routine-card {
@@ -356,27 +356,6 @@
     </div>
 
     <script>
-        // --- Dynamic iframe height script ---
-        function sendHeightToParent() {
-            const body = document.body, html = document.documentElement;
-            const height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-            window.parent.postMessage({
-                height: height + 20,
-                id: 'skincare-builder-recolored'
-            }, '*');
-        }
-
-        const mainContainer = document.getElementById('main-container');
-        if (window.ResizeObserver && mainContainer) {
-            const resizeObserver = new ResizeObserver(entries => {
-                sendHeightToParent();
-            });
-            resizeObserver.observe(mainContainer);
-        } else {
-            window.addEventListener('load', sendHeightToParent);
-            window.addEventListener('resize', sendHeightToParent);
-        }
-
         // --- DOM Elements ---
         const skincareQuizForm = document.getElementById('skincareQuizForm');
         const calculateRoutineButton = document.getElementById('calculateRoutineButton');
@@ -654,16 +633,9 @@
                 // Hide loading spinner and re-enable button
                 loadingIndicator.classList.add('hidden');
                 calculateRoutineButton.disabled = false;
-                sendHeightToParent(); // Adjust height for the new content
             }
         });
         
-        // --- Event listener for initial page load ---
-        window.addEventListener('load', () => {
-            sendHeightToParent();
-        });
-
-
         // Add event listeners to radio options for hover effect on click
         const radioOptions = document.querySelectorAll('.radio-option');
         radioOptions.forEach(option => {
@@ -677,6 +649,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
