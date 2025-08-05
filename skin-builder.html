@@ -1,621 +1,675 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auntie Esty's Personalized Skincare Routine Builder</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /*
-         * All CSS in this immersive is scoped to the parent class to prevent
-         * it from 'leaking' and affecting other elements on your website.
-         * This should resolve the issue of the mobile menu appearing.
-         */
-        .skincare-builder-recolored-container {
-            font-family: 'Inter', sans-serif;
-            background-color: #fcfcfc;
-            padding: 1rem;
-            box-sizing: border-box;
-            min-height: 100%;
-        }
-
-        .skincare-builder-recolored-container .routine-card {
-            background-color: #ffffff;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            padding: 2rem;
-            margin: 0 auto;
-            text-align: center;
-            border: 2px solid #b37e76;
-            min-height: 100%;
-        }
-
-        .skincare-builder-recolored-container .builder-title {
-            color: #c89b94;
-            font-size: 2.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-        }
-
-        .skincare-builder-recolored-container .question-group {
-            border: 1px solid #e0e0e0;
-            border-radius: 0.75rem;
-            background-color: #fdfdfd;
-        }
-
-        .skincare-builder-recolored-container .question-group h3 {
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: #b37e76;
-        }
-
-        .skincare-builder-recolored-container .radio-option:hover {
-            background-color: #f7e9e7;
-        }
-
-        .skincare-builder-recolored-container .radio-option input[type="radio"] {
-            accent-color: #c89b94;
-            transform: scale(1.2);
-        }
-
-        .skincare-builder-recolored-container .calculate-btn {
-            background-color: #c89b94;
-            color: #ffffff;
-            border: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .skincare-builder-recolored-container .calculate-btn:hover {
-            background-color: #b37e76;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .skincare-builder-recolored-container .results-section {
-            border-top: 2px dashed #c89b94;
-        }
-
-        .skincare-builder-recolored-container .results-heading {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #b37e76;
-        }
-
-        .skincare-builder-recolored-container .routine-section h4 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #c89b94;
-        }
-
-        .skincare-builder-recolored-container .routine-list li {
-            background-color: #f7e9e7;
-            border: 1px solid #b37e76;
-            border-radius: 0.75rem;
-            color: #4a4a4a;
-        }
-
-        .skincare-builder-recolored-container .message-box {
-            background-color: #fffbe6;
-            color: #856404;
-            border: 1px solid #ffeeba;
-        }
-
-        .skincare-builder-recolored-container .disclaimer-box {
-            background-color: #b37e76;
-            border: 1px solid #b37e76;
-            color: #ffffff;
-        }
-
-        /* The updated CSS to ensure text inside the disclaimer box is white */
-        .skincare-builder-recolored-container .disclaimer-box p {
-            color: #ffffff;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auntie Esty's Personalized Skincare Routine Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /*
+         * All CSS in this immersive is scoped to the parent class to prevent
+         * it from 'leaking' and affecting other elements on your website.
+         */
+        .skincare-builder-recolored-container {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle, #FBE8E6 0%, #EAD6D2 100%); /* Soft, rosy gradient background */
+            padding: 1rem;
+            box-sizing: border-box;
+            min-height: 100vh; /* Use min-height for full viewport height */
         }
-        
-        .skincare-builder-recolored-container .disclaimer-box strong {
-            color: #ffffff;
-        }
-        /*
-         * This style is for the animated spinner,
-         * ensuring it's a perfect circle with a partial border.
-         */
-        .spinner {
-            border-color: #e0e0e0;
-            border-left-color: #b37e76;
-            animation: spin 1s linear infinite;
-        }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        .skincare-builder-recolored-container .routine-card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* More pronounced shadow */
+            padding: 2rem;
+            margin: 2rem auto; /* Add margin to top and bottom */
+            text-align: center;
+            border: 1px solid #F0E0D9; /* Lighter, more subtle border */
+            max-width: 90%; /* Ensure responsiveness on smaller screens */
+        }
 
-        @media (max-width: 640px) {
-            .skincare-builder-recolored-container .builder-title { font-size: 2rem; }
-            .skincare-builder-recolored-container .question-group h3 { font-size: 1.2rem; }
-            .skincare-builder-recolored-container .results-heading { font-size: 1.5rem; }
-        }
-    </style>
+        .skincare-builder-recolored-container .builder-title {
+            color: #C9A8A5; /* Updated color to match the search button */
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        
+        /* Updated the question group heading color */
+        .skincare-builder-recolored-container .question-group h3 {
+            color: #C9A8A5;
+        }
+
+        .skincare-builder-recolored-container .question-group {
+            border: 1px solid #F0E0D9; /* Light, subtle rose border */
+            border-radius: 0.75rem;
+            background-color: #FFFFFF;
+        }
+
+        .skincare-builder-recolored-container .radio-option:hover {
+            background-color: #F0E5E3; /* Light rose hover state */
+        }
+
+        .skincare-builder-recolored-container .radio-option input[type="radio"] {
+            accent-color: #C9A8A5; /* Primary brand rose color for radio buttons */
+            transform: scale(1.2);
+        }
+
+        .skincare-builder-recolored-container .calculate-btn {
+            background-color: #C9A8A5; /* Primary brand rose color for the button */
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .skincare-builder-recolored-container .calculate-btn:hover {
+            background-color: #A48986; /* Darker rose on hover */
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .skincare-builder-recolored-container .results-section {
+            border-top: 2px dashed #C9A8A5; /* Primary rose for the divider */
+        }
+
+        .skincare-builder-recolored-container .results-heading {
+            color: #C9A8A5; /* Updated color to match the search button */
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .skincare-builder-recolored-container .routine-section h4 {
+            color: #C9A8A5; /* Updated color to match the search button */
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .skincare-builder-recolored-container .routine-list li {
+            background-color: #F0E5E3; /* Light rose for list items */
+            border: 1px solid #C9A8A5; /* Soft rose border */
+            border-radius: 0.75rem;
+            color: #333333; /* Dark text for readability */
+        }
+
+        /* Updated message box to match the peach/orange recommendation box in the example */
+        .skincare-builder-recolored-container .message-box {
+            background-color: #FDE8D8; /* Soft peach for info box */
+            color: #4A4342; /* Darker text */
+            border: 1px solid #FBC7A6; /* Soft orange border color */
+        }
+
+        .skincare-builder-recolored-container .disclaimer-box {
+            background-color: #ffffff; /* White background to match the main card */
+            border: 1px solid #E0D4D2;
+            color: #4A4342;
+        }
+
+        /* The updated CSS to ensure text inside the disclaimer box is the correct color */
+        .skincare-builder-recolored-container .disclaimer-box p {
+            color: #4A4342;
+        }
+        
+        .skincare-builder-recolored-container .disclaimer-box strong {
+            color: #4A4342;
+        }
+        
+        /*
+         * This style is for the animated spinner,
+         * ensuring it's a perfect circle with a partial border.
+         */
+        .spinner {
+            border-color: #E0D4D2; /* Light, subtle spinner border */
+            border-left-color: #C9A8A5; /* Primary brand color for the animation */
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 640px) {
+            .skincare-builder-recolored-container .builder-title { font-size: 2rem; }
+            .skincare-builder-recolored-container .question-group h3 { font-size: 1.2rem; }
+            .skincare-builder-recolored-container .results-heading { font-size: 1.5rem; }
+        }
+    </style>
 </head>
-<body class="bg-[#fcfcfc]">
-    <div id="main-container" class="skincare-builder-recolored-container w-full p-4 md:p-6 lg:p-8">
-        <div class="routine-card mx-auto max-w-4xl p-8 lg:p-12">
-            <h1 class="builder-title font-extrabold mb-6 md:text-5xl">Auntie Esty's Routine Architect</h1>
-            <p class="text-lg md:text-xl text-gray-600 mb-8">Let's build your perfect personalized skincare routine, bestie!</p>
+<body>
+    <div id="main-container" class="skincare-builder-recolored-container w-full p-4 md:p-6 lg:p-8">
+        <div class="routine-card mx-auto max-w-4xl p-8 lg:p-12">
+            <h1 class="builder-title font-extrabold mb-6 md:text-5xl">Auntie Esty's Routine Architect</h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-8">Let's build your perfect personalized skincare routine, bestie!</p>
 
-            <form id="skincareQuizForm" class="space-y-8">
-                <div class="question-group text-left p-4 rounded-xl">
-                    <h3 class="mb-4 md:text-2xl">Section 1: Oiliness & Dryness</h3>
-                    
-                    <div class="mb-4">
-                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>1. How does your skin typically feel immediately after cleansing (before applying any products)?</strong></p>
-                        <div class="space-y-2">
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q1a" name="q1" value="A" required class="mr-3 transform scale-125">
-                                <label for="q1a" class="text-gray-600 text-sm md:text-base">A. Tight, dry, or flaky, especially on cheeks.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q1b" name="q1" value="B" class="mr-3 transform scale-125">
-                                <label for="q1b" class="text-gray-600 text-sm md:text-base">B. Comfortable, balanced, neither tight nor oily.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q1c" name="q1" value="C" class="mr-3 transform scale-125">
-                                <label for="q1c" class="text-gray-600 text-sm md:text-base">C. Oily or shiny all over, especially in the T-zone.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q1d" name="q1" value="D" class="mr-3 transform scale-125">
-                                <label for="q1d" class="text-gray-600 text-sm md:text-base">D. Oily/shiny in the T-zone, but dry/normal on cheeks.</label>
-                            </div>
-                        </div>
-                    </div>
+            <form id="skincareQuizForm" class="space-y-8">
+                <div class="question-group text-left p-4 rounded-xl">
+                    <h3 class="mb-4 md:text-2xl">Section 1: Oiliness & Dryness</h3>
+                    
+                    <div class="mb-4">
+                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>1. How does your skin typically feel immediately after cleansing (before applying any products)?</strong></p>
+                        <div class="space-y-2">
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q1a" name="q1" value="A" required class="mr-3 transform scale-125">
+                                <label for="q1a" class="text-gray-600 text-sm md:text-base">A. Tight, dry, or flaky, especially on cheeks.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q1b" name="q1" value="B" class="mr-3 transform scale-125">
+                                <label for="q1b" class="text-gray-600 text-sm md:text-base">B. Comfortable, balanced, neither tight nor oily.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q1c" name="q1" value="C" class="mr-3 transform scale-125">
+                                <label for="q1c" class="text-gray-600 text-sm md:text-base">C. Oily or shiny all over, especially in the T-zone.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q1d" name="q1" value="D" class="mr-3 transform scale-125">
+                                <label for="q1d" class="text-gray-600 text-sm md:text-base">D. Oily/shiny in the T-zone, but dry/normal on cheeks.</label>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div class="mb-4">
-                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>2. How does your skin typically feel mid-day, without makeup or products?</strong></p>
-                        <div class="space-y-2">
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q2a" name="q2" value="A" required class="mr-3 transform scale-125">
-                                <label for="q2a" class="text-gray-600 text-sm md:text-base">A. Dry, tight, or flaky again.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q2b" name="q2" value="B" class="mr-3 transform scale-125">
-                                <label for="q2b" class="text-gray-600 text-sm md:text-base">B. Still balanced and comfortable.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q2c" name="q2" value="C" class="mr-3 transform scale-125">
-                                <label for="q2c" class="text-gray-600 text-sm md:text-base">C. Very oily and shiny all over.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q2d" name="q2" value="D" class="mr-3 transform scale-125">
-                                <label for="q2d" class="text-gray-600 text-sm md:text-base">D. Shiny in the T-zone, but normal/dry elsewhere.</label>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="mb-4">
+                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>2. How does your skin typically feel mid-day, without makeup or products?</strong></p>
+                        <div class="space-y-2">
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q2a" name="q2" value="A" required class="mr-3 transform scale-125">
+                                <label for="q2a" class="text-gray-600 text-sm md:text-base">A. Dry, tight, or flaky again.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q2b" name="q2" value="B" class="mr-3 transform scale-125">
+                                <label for="q2b" class="text-gray-600 text-sm md:text-base">B. Still balanced and comfortable.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q2c" name="q2" value="C" class="mr-3 transform scale-125">
+                                <label for="q2c" class="text-gray-600 text-sm md:text-base">C. Very oily and shiny all over.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q2d" name="q2" value="D" class="mr-3 transform scale-125">
+                                <label for="q2d" class="text-gray-600 text-sm md:text-base">D. Shiny in the T-zone, but normal/dry elsewhere.</label>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div>
-                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>3. How would you describe your pore size?</strong></p>
-                        <div class="space-y-2">
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q3a" name="q3" value="A" required class="mr-3 transform scale-125">
-                                <label for="q3a" class="text-gray-600 text-sm md:text-base">A. Barely visible.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q3b" name="q3" value="B" class="mr-3 transform scale-125">
-                                <label for="q3b" class="text-gray-600 text-sm md:text-base">B. Visible, especially on the nose.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q3c" name="q3" value="C" class="mr-3 transform scale-125">
-                                <label for="q3c" class="text-gray-600 text-sm md:text-base">C. Enlarged, especially in the T-zone.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q3d" name="q3" value="D" class="mr-3 transform scale-125">
-                                <label for="q3d" class="text-gray-600 text-sm md:text-base">D. Large all over your face.</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <div>
+                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>3. How would you describe your pore size?</strong></p>
+                        <div class="space-y-2">
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q3a" name="q3" value="A" required class="mr-3 transform scale-125">
+                                <label for="q3a" class="text-gray-600 text-sm md:text-base">A. Barely visible.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q3b" name="q3" value="B" class="mr-3 transform scale-125">
+                                <label for="q3b" class="text-gray-600 text-sm md:text-base">B. Visible, especially on the nose.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q3c" name="q3" value="C" class="mr-3 transform scale-125">
+                                <label for="q3c" class="text-gray-600 text-sm md:text-base">C. Enlarged, especially in the T-zone.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q3d" name="q3" value="D" class="mr-3 transform scale-125">
+                                <label for="q3d" class="text-gray-600 text-sm md:text-base">D. Large all over your face.</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="question-group text-left p-4 rounded-xl">
-                    <h3 class="mb-4 md:text-2xl">Section 2: Sensitivity</h3>
-                    
-                    <div class="mb-4">
-                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>4. How often do you experience redness, itching, or stinging with new products or environmental factors (e.g., wind, cold)?</strong></p>
-                        <div class="space-y-2">
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q4a" name="q4" value="A" required class="mr-3 transform scale-125">
-                                <label for="q4a" class="text-gray-600 text-sm md:text-base">A. Never or very rarely.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q4b" name="q4" value="B" class="mr-3 transform scale-125">
-                                <label for="q4b" class="text-gray-600 text-sm md:text-base">B. Occasionally, with specific ingredients or harsh conditions.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q4c" name="q4" value="C" class="mr-3 transform scale-125">
-                                <label for="q4c" class="text-gray-600 text-sm md:text-base">C. Frequently, my skin gets easily irritated.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q4d" name="q4" value="D" class="mr-3 transform scale-125">
-                                <label for="q4d" class="text-gray-600 text-sm md:text-base">D. Almost always, my skin is very reactive.</label>
-                            </div>
-                        </div>
-                    </div>
+                <div class="question-group text-left p-4 rounded-xl">
+                    <h3 class="mb-4 md:text-2xl">Section 2: Sensitivity</h3>
+                    
+                    <div class="mb-4">
+                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>4. How often do you experience redness, itching, or stinging with new products or environmental factors (e.g., wind, cold)?</strong></p>
+                        <div class="space-y-2">
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q4a" name="q4" value="A" required class="mr-3 transform scale-125">
+                                <label for="q4a" class="text-gray-600 text-sm md:text-base">A. Never or very rarely.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q4b" name="q4" value="B" class="mr-3 transform scale-125">
+                                <label for="q4b" class="text-gray-600 text-sm md:text-base">B. Occasionally, with specific ingredients or harsh conditions.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q4c" name="q4" value="C" class="mr-3 transform scale-125">
+                                <label for="q4c" class="text-gray-600 text-sm md:text-base">C. Frequently, my skin gets easily irritated.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q4d" name="q4" value="D" class="mr-3 transform scale-125">
+                                <label for="q4d" class="text-gray-600 text-sm md:text-base">D. Almost always, my skin is very reactive.</label>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div>
-                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>5. Do you often notice visible redness or flushing on your face, even when not exercising or embarrassed?</strong></p>
-                        <div class="space-y-2">
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q5a" name="q5" value="A" required class="mr-3 transform scale-125">
-                                <label for="q5a" class="text-gray-600 text-sm md:text-base">A. Rarely or never.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q5b" name="q5" value="B" class="mr-3 transform scale-125">
-                                <label for="q5b" class="text-gray-600 text-sm md:text-base">B. Sometimes, especially on cheeks or nose.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q5c" name="q5" value="C" class="mr-3 transform scale-125">
-                                <label for="q5c" class="text-gray-600 text-sm md:text-base">C. Frequently, I have persistent redness.</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <div>
+                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>5. Do you often notice visible redness or flushing on your face, even when not exercising or embarrassed?</strong></p>
+                        <div class="space-y-2">
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q5a" name="q5" value="A" required class="mr-3 transform scale-125">
+                                <label for="q5a" class="text-gray-600 text-sm md:text-base">A. Rarely or never.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q5b" name="q5" value="B" class="mr-3 transform scale-125">
+                                <label for="q5b" class="text-gray-600 text-sm md:text-base">B. Sometimes, especially on cheeks or nose.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q5c" name="q5" value="C" class="mr-3 transform scale-125">
+                                <label for="q5c" class="text-gray-600 text-sm md:text-base">C. Frequently, I have persistent redness.</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="question-group text-left p-4 rounded-xl">
-                    <h3 class="mb-4 md:text-2xl">Section 3: Specific Concerns</h3>
-                    
-                    <div class="mb-4">
-                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>6. How often do you experience breakouts (pimples, blackheads, whiteheads, cysts)?</strong></p>
-                        <div class="space-y-2">
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q6a" name="q6" value="A" required class="mr-3 transform scale-125">
-                                <label for="q6a" class="text-gray-600 text-sm md:text-base">A. Rarely or never.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q6b" name="q6" value="B" class="mr-3 transform scale-125">
-                                <label for="q6b" class="text-gray-600 text-sm md:text-base">B. Occasionally (1-2 per month, usually mild).</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q6c" name="q6" value="C" class="mr-3 transform scale-125">
-                                <label for="q6c" class="text-gray-600 text-sm md:text-base">C. Frequently (weekly, moderate breakouts).</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q6d" name="q6" value="D" class="mr-3 transform scale-125">
-                                <label for="q6d" class="text-gray-600 text-sm md:text-base">D. Constantly (daily, severe or cystic acne).</label>
-                            </div>
-                        </div>
-                    </div>
+                <div class="question-group text-left p-4 rounded-xl">
+                    <h3 class="mb-4 md:text-2xl">Section 3: Specific Concerns</h3>
+                    
+                    <div class="mb-4">
+                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>6. How often do you experience breakouts (pimples, blackheads, whiteheads, cysts)?</strong></p>
+                        <div class="space-y-2">
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q6a" name="q6" value="A" required class="mr-3 transform scale-125">
+                                <label for="q6a" class="text-gray-600 text-sm md:text-base">A. Rarely or never.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q6b" name="q6" value="B" class="mr-3 transform scale-125">
+                                <label for="q6b" class="text-gray-600 text-sm md:text-base">B. Occasionally (1-2 per month, usually mild).</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q6c" name="q6" value="C" class="mr-3 transform scale-125">
+                                <label for="q6c" class="text-gray-600 text-sm md:text-base">C. Frequently (weekly, moderate breakouts).</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q6d" name="q6" value="D" class="mr-3 transform scale-125">
+                                <label for="q6d" class="text-gray-600 text-sm md:text-base">D. Constantly (daily, severe or cystic acne).</label>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div class="mb-4">
-                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>7. Are you concerned about hyperpigmentation (dark spots, sun spots, post-acne marks, melasma)?</strong></p>
-                        <div class="space-y-2">
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q7a" name="q7" value="A" required class="mr-3 transform scale-125">
-                                <label for="q7a" class="text-gray-600 text-sm md:text-base">A. Not really, my skin tone is even.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q7b" name="q7" value="B" class="mr-3 transform scale-125">
-                                <label for="q7b" class="text-gray-600 text-sm md:text-base">B. A little, I have a few faint spots.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q7c" name="q7" value="C" class="mr-3 transform scale-125">
-                                <label for="q7c" class="text-gray-600 text-sm md:text-base">C. Yes, I have noticeable dark spots or uneven tone.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q7d" name="q7" value="D" class="mr-3 transform scale-125">
-                                <label for="q7d" class="text-gray-600 text-sm md:text-base">D. Very much, it's a primary concern for me.</label>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="mb-4">
+                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>7. Are you concerned about hyperpigmentation (dark spots, sun spots, post-acne marks, melasma)?</strong></p>
+                        <div class="space-y-2">
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q7a" name="q7" value="A" required class="mr-3 transform scale-125">
+                                <label for="q7a" class="text-gray-600 text-sm md:text-base">A. Not really, my skin tone is even.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q7b" name="q7" value="B" class="mr-3 transform scale-125">
+                                <label for="q7b" class="text-gray-600 text-sm md:text-base">B. A little, I have a few faint spots.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q7c" name="q7" value="C" class="mr-3 transform scale-125">
+                                <label for="q7c" class="text-gray-600 text-sm md:text-base">C. Yes, I have noticeable dark spots or uneven tone.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q7d" name="q7" value="D" class="mr-3 transform scale-125">
+                                <label for="q7d" class="text-gray-600 text-sm md:text-base">D. Very much, it's a primary concern for me.</label>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div>
-                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>8. Are you concerned about signs of aging (fine lines, wrinkles, loss of firmness)?</strong></p>
-                        <div class="space-y-2">
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q8a" name="q8" value="A" required class="mr-3 transform scale-125">
-                                <label for="q8a" class="text-gray-600 text-sm md:text-base">A. Not at all, my skin feels firm and smooth.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q8b" name="q8" value="B" class="mr-3 transform scale-125">
-                                <label for="q8b" class="text-gray-600 text-sm md:text-base">B. A little, I'm starting to see some fine lines.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q8c" name="q8" value="C" class="mr-3 transform scale-125">
-                                <label for="q8c" class="text-gray-600 text-sm md:text-base">C. Yes, I have noticeable lines and some loss of firmness.</label>
-                            </div>
-                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="q8d" name="q8" value="D" class="mr-3 transform scale-125">
-                                <label for="q8d" class="text-gray-600 text-sm md:text-base">D. Very much, it's a primary concern for me.</label>
-                            </div>
-                    </div>
-                </div>
+                    <div>
+                        <p class="text-base text-gray-700 font-semibold mb-2"><strong>8. Are you concerned about signs of aging (fine lines, wrinkles, loss of firmness)?</strong></p>
+                        <div class="space-y-2">
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q8a" name="q8" value="A" required class="mr-3 transform scale-125">
+                                <label for="q8a" class="text-gray-600 text-sm md:text-base">A. Not at all, my skin feels firm and smooth.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q8b" name="q8" value="B" class="mr-3 transform scale-125">
+                                <label for="q8b" class="text-gray-600 text-sm md:text-base">B. A little, I'm starting to see some fine lines.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q8c" name="q8" value="C" class="mr-3 transform scale-125">
+                                <label for="q8c" class="text-gray-600 text-sm md:text-base">C. Yes, I have noticeable lines and some loss of firmness.</label>
+                            </div>
+                            <div class="radio-option flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="q8d" name="q8" value="D" class="mr-3 transform scale-125">
+                                <label for="q8d" class="text-gray-600 text-sm md:text-base">D. Very much, it's a primary concern for me.</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <button type="submit" id="calculateRoutineButton" class="calculate-btn py-3 px-10 rounded-xl text-lg font-bold shadow-md transition-all duration-300 ease-in-out hover:scale-105 active:scale-100">Build My Routine!</button>
-            </form>
+                <button type="submit" id="calculateRoutineButton" class="calculate-btn py-3 px-10 rounded-xl text-lg font-bold shadow-md transition-all duration-300 ease-in-out hover:scale-105 active:scale-100">Build My Routine!</button>
+            </form>
 
-            <div id="loadingIndicator" class="loading-indicator flex items-center justify-center mt-8 text-[#b37e76] font-semibold text-lg hidden">
-                <div class="spinner w-6 h-6 border-4 border-gray-200 border-l-[#b37e76] rounded-full animate-spin mr-3"></div>
-                <span>Auntie Esty is architecting your routine...</span>
-            </div>
+            <div id="loadingIndicator" class="loading-indicator flex items-center justify-center mt-8 text-[#4A4342] font-semibold text-lg hidden">
+                <div class="spinner w-6 h-6 border-4 border-[#E0D4D2] border-l-[#C9A8A5] rounded-full animate-spin mr-3"></div>
+                <span>Auntie Esty is architecting your routine...</span>
+            </div>
 
-            <div id="resultsSection" class="results-section mt-10 pt-8 text-left hidden">
-                <h2 class="results-heading mb-6 text-center">Your Personalized Routine, Bestie!</h2>
-                <div id="routineContent">
-                    </div>
-            </div>
+            <div id="resultsSection" class="results-section mt-10 pt-8 text-left hidden">
+                <h2 class="results-heading mb-6 text-center">Your Personalized Routine, Bestie!</h2>
+                <div id="routineContent">
+                    </div>
+            </div>
 
-            <div class="disclaimer-box rounded-xl p-4 mt-10 text-sm text-left leading-relaxed">
-                <p><strong>Auntie Esty's Wisdom:</strong> Please read all information carefully. The advice provided on this website and in our products is for informational purposes only and is not a substitute for professional medical advice. Always consult with a qualified healthcare professional or licensed dermatologist for specific skin conditions or concerns.</p>
-                <br>
-                <p><strong>Potential Allergic Reactions & Patch Testing:</strong> While our products are made with great care, individual sensitivities and allergic reactions can occur. We advise all users to perform a patch test on a small, inconspicuous area of skin (such as the inner elbow or behind the ear) before full application. Wait 24-48 hours to ensure there is no adverse reaction, such as redness, itching, or irritation.</p>
-                <br>
-                <p>If you experience any adverse reaction, discontinue use immediately. Do not use the product on broken or irritated skin. For external use only.</p>
-                <br>
-                <p>The user assumes all responsibility and risk for the use of this information and any products purchased.</p>
-            </div>
+            <div class="disclaimer-box rounded-xl p-4 mt-10 text-sm text-left leading-relaxed">
+                <p><strong>Auntie Esty's Wisdom:</strong> Please read all information carefully. The advice provided on this website and in our products is for informational purposes only and is not a substitute for professional medical advice. Always consult with a qualified healthcare professional or licensed dermatologist for specific skin conditions or concerns.</p>
+                <br>
+                <p><strong>Potential Allergic Reactions & Patch Testing:</strong> While our products are made with great care, individual sensitivities and allergic reactions can occur. We advise all users to perform a patch test on a small, inconspicuous area of skin (such as the inner elbow or behind the ear) before full application. Wait 24-48 hours to ensure there is no adverse reaction, such as redness, itching, or irritation.</p>
+                <br>
+                <p>If you experience any adverse reaction, discontinue use immediately. Do not use the product on broken or irritated skin. For external use only.</p>
+                <br>
+                <p>The user assumes all responsibility and risk for the use of this information and any products purchased.</p>
+            </div>
 
-            <div id="messageBox" class="message-box rounded-xl p-4 mt-6 text-sm hidden"></div>
-        </div>
-    </div>
+            <div id="messageBox" class="message-box rounded-xl p-4 mt-6 text-sm hidden"></div>
+        </div>
+    </div>
 
-    <script>
-        // --- Dynamic iframe height script ---
-        function sendHeightToParent() {
-            const body = document.body, html = document.documentElement;
-            const height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-            window.parent.postMessage({
-                height: height + 20,
-                id: 'skincare-builder-recolored'
-            }, '*');
-        }
+    <script>
+        // --- Dynamic iframe height script ---
+        function sendHeightToParent() {
+            const body = document.body, html = document.documentElement;
+            const height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+            window.parent.postMessage({
+                height: height + 20,
+                id: 'skincare-builder-recolored'
+            }, '*');
+        }
 
-        const mainContainer = document.getElementById('main-container');
-        if (window.ResizeObserver && mainContainer) {
-            const resizeObserver = new ResizeObserver(entries => {
-                sendHeightToParent();
-            });
-            resizeObserver.observe(mainContainer);
-        } else {
-            window.addEventListener('load', sendHeightToParent);
-            window.addEventListener('resize', sendHeightToParent);
-        }
+        const mainContainer = document.getElementById('main-container');
+        if (window.ResizeObserver && mainContainer) {
+            const resizeObserver = new ResizeObserver(entries => {
+                sendHeightToParent();
+            });
+            resizeObserver.observe(mainContainer);
+        } else {
+            window.addEventListener('load', sendHeightToParent);
+            window.addEventListener('resize', sendHeightToParent);
+        }
 
-        // --- DOM Elements ---
-        const skincareQuizForm = document.getElementById('skincareQuizForm');
-        const calculateRoutineButton = document.getElementById('calculateRoutineButton');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        const resultsSection = document.getElementById('resultsSection');
-        const routineContent = document.getElementById('routineContent');
-        const messageBox = document.getElementById('messageBox');
+        // --- DOM Elements ---
+        const skincareQuizForm = document.getElementById('skincareQuizForm');
+        const calculateRoutineButton = document.getElementById('calculateRoutineButton');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const resultsSection = document.getElementById('resultsSection');
+        const routineContent = document.getElementById('routineContent');
+        const messageBox = document.getElementById('messageBox');
 
-        /**
-         * Displays a message in the message box.
-         * @param {string} message - The message to display.
-         */
-        function showMessage(message) {
-            messageBox.textContent = message;
-            messageBox.classList.remove('hidden');
-            setTimeout(() => {
-                messageBox.classList.add('hidden');
-            }, 5000);
-        }
+        /**
+         * Displays a message in the message box.
+         * @param {string} message - The message to display.
+         */
+        function showMessage(message) {
+            messageBox.textContent = message;
+            messageBox.classList.remove('hidden');
+            setTimeout(() => {
+                messageBox.classList.add('hidden');
+            }, 5000);
+        }
 
-        /**
-         * Calculates scores based on quiz answers.
-         * @param {Object} answers - Object with question names as keys and selected values as answers.
-         * @returns {Object} Scores for each skin type/concern.
-         */
-        function calculateScores(answers) {
-            const scores = {
-                Dry: 0, Oily: 0, Combination: 0, Normal: 0, Sensitive: 0, Acne: 0, Hyperpigmentation: 0, Aging: 0
-            };
-            switch (answers.q1) {
-                case 'A': scores.Dry += 3; break;
-                case 'B': scores.Normal += 2; break;
-                case 'C': scores.Oily += 3; break;
-                case 'D': scores.Combination += 3; break;
-            }
-            switch (answers.q2) {
-                case 'A': scores.Dry += 2; break;
-                case 'B': scores.Normal += 1; break;
-                case 'C': scores.Oily += 2; break;
-                case 'D': scores.Combination += 2; break;
-            }
-            switch (answers.q3) {
-                case 'A': scores.Dry += 1; scores.Normal += 1; break;
-                case 'B': scores.Combination += 1; break;
-                case 'C': scores.Combination += 2; scores.Oily += 1; break;
-                case 'D': scores.Oily += 2; break;
-            }
-            switch (answers.q4) {
-                case 'A': scores.Normal += 1; scores.Oily += 1; scores.Dry += 1; scores.Combination += 1; break;
-                case 'B': scores.Sensitive += 2; break;
-                case 'C': scores.Sensitive += 3; break;
-                case 'D': scores.Sensitive += 4; break;
-            }
-            switch (answers.q5) {
-                case 'A': scores.Normal += 1; break;
-                case 'B': scores.Sensitive += 2; break;
-                case 'C': scores.Sensitive += 3; break;
-            }
-            switch (answers.q6) {
-                case 'A': scores.Acne += 0; break;
-                case 'B': scores.Acne += 1; break;
-                case 'C': scores.Acne += 2; break;
-                case 'D': scores.Acne += 3; break;
-            }
-            switch (answers.q7) {
-                case 'A': scores.Hyperpigmentation += 0; break;
-                case 'B': scores.Hyperpigmentation += 1; break;
-                case 'C': scores.Hyperpigmentation += 2; break;
-                case 'D': scores.Hyperpigmentation += 3; break;
-            }
-            switch (answers.q8) {
-                case 'A': scores.Aging += 0; break;
-                case 'B': scores.Aging += 1; break;
-                case 'C': scores.Aging += 2; break;
-                case 'D': scores.Aging += 3; break;
-            }
-            return scores;
-        }
+        /**
+         * Calculates scores based on quiz answers.
+         * @param {Object} answers - Object with question names as keys and selected values as answers.
+         * @returns {Object} Scores for each skin type/concern.
+         */
+        function calculateScores(answers) {
+            const scores = {
+                Dry: 0, Oily: 0, Combination: 0, Normal: 0, Sensitive: 0, Acne: 0, Hyperpigmentation: 0, Aging: 0
+            };
+            switch (answers.q1) {
+                case 'A': scores.Dry += 3; break;
+                case 'B': scores.Normal += 2; break;
+                case 'C': scores.Oily += 3; break;
+                case 'D': scores.Combination += 3; break;
+            }
+            switch (answers.q2) {
+                case 'A': scores.Dry += 2; break;
+                case 'B': scores.Normal += 1; break;
+                case 'C': scores.Oily += 2; break;
+                case 'D': scores.Combination += 2; break;
+            }
+            switch (answers.q3) {
+                case 'A': scores.Dry += 1; scores.Normal += 1; break;
+                case 'B': scores.Combination += 1; break;
+                case 'C': scores.Combination += 2; scores.Oily += 1; break;
+                case 'D': scores.Oily += 2; break;
+            }
+            switch (answers.q4) {
+                case 'A': scores.Normal += 1; scores.Oily += 1; scores.Dry += 1; scores.Combination += 1; break;
+                case 'B': scores.Sensitive += 2; break;
+                case 'C': scores.Sensitive += 3; break;
+                case 'D': scores.Sensitive += 4; break;
+            }
+            switch (answers.q5) {
+                case 'A': scores.Normal += 1; break;
+                case 'B': scores.Sensitive += 2; break;
+                case 'C': scores.Sensitive += 3; break;
+            }
+            switch (answers.q6) {
+                case 'A': scores.Acne += 0; break;
+                case 'B': scores.Acne += 1; break;
+                case 'C': scores.Acne += 2; break;
+                case 'D': scores.Acne += 3; break;
+            }
+            switch (answers.q7) {
+                case 'A': scores.Hyperpigmentation += 0; break;
+                case 'B': scores.Hyperpigmentation += 1; break;
+                case 'C': scores.Hyperpigmentation += 2; break;
+                case 'D': scores.Hyperpigmentation += 3; break;
+            }
+            switch (answers.q8) {
+                case 'A': scores.Aging += 0; break;
+                case 'B': scores.Aging += 1; break;
+                case 'C': scores.Aging += 2; break;
+                case 'D': scores.Aging += 3; break;
+            }
+            return scores;
+        }
 
-        /**
-         * Determines primary skin type and concerns based on scores.
-         * @param {Object} scores - Calculated scores.
-         * @returns {Object} Object with primaryType and concerns array.
-         */
-        function determineSkinProfile(scores) {
-            let primaryType = 'Normal';
-            let maxTypeScore = 0;
-            const skinTypeScores = {
-                Dry: scores.Dry, Oily: scores.Oily, Combination: scores.Combination, Normal: scores.Normal
-            };
-            for (const type in skinTypeScores) {
-                if (skinTypeScores[type] > maxTypeScore) {
-                    maxTypeScore = skinTypeScores[type];
-                    primaryType = type;
-                } else if (skinTypeScores[type] === maxTypeScore && type === 'Combination' && primaryType !== 'Combination') {
-                    primaryType = 'Combination';
-                }
-            }
-            if (primaryType === 'Normal' && maxTypeScore < 3) {
-                if (scores.Oily > 0 && scores.Dry > 0) {
-                    primaryType = 'Combination';
-                }
-            }
-            const concerns = [];
-            if (scores.Sensitive >= 2) concerns.push('Sensitive');
-            if (scores.Acne >= 2) concerns.push('Acne');
-            if (scores.Hyperpigmentation >= 2) concerns.push('Hyperpigmentation');
-            if (scores.Aging >= 2) concerns.push('Aging');
-            return { primaryType, concerns };
-        }
+        /**
+         * Determines primary skin type and concerns based on scores.
+         * @param {Object} scores - Calculated scores.
+         * @returns {Object} Object with primaryType and concerns array.
+         */
+        function determineSkinProfile(scores) {
+            let primaryType = 'Normal';
+            let maxTypeScore = 0;
+            const skinTypeScores = {
+                Dry: scores.Dry, Oily: scores.Oily, Combination: scores.Combination, Normal: scores.Normal
+            };
+            for (const type in skinTypeScores) {
+                if (skinTypeScores[type] > maxTypeScore) {
+                    maxTypeScore = skinTypeScores[type];
+                    primaryType = type;
+                } else if (skinTypeScores[type] === maxTypeScore && type === 'Combination' && primaryType !== 'Combination') {
+                    primaryType = 'Combination';
+                }
+            }
+            if (primaryType === 'Normal' && maxTypeScore < 3) {
+                if (scores.Oily > 0 && scores.Dry > 0) {
+                    primaryType = 'Combination';
+                }
+            }
+            const concerns = [];
+            if (scores.Sensitive >= 2) concerns.push('Sensitive');
+            if (scores.Acne >= 2) concerns.push('Acne');
+            if (scores.Hyperpigmentation >= 2) concerns.push('Hyperpigmentation');
+            if (scores.Aging >= 2) concerns.push('Aging');
+            return { primaryType, concerns };
+        }
 
-        /**
-         * Generates routine HTML based on skin profile.
-         * @param {Object} profile - Skin profile (primaryType, concerns).
-         * @returns {string} HTML string for the routine.
-         */
-        function generateRoutineHTML(profile) {
-            const { primaryType, concerns } = profile;
-            const isSensitive = concerns.includes('Sensitive');
-            const hasAcne = concerns.includes('Acne');
-            const hasHyperpigmentation = concerns.includes('Hyperpigmentation');
-            const hasAging = concerns.includes('Aging');
-            let morningRoutine = [];
-            let eveningRoutine = [];
-            let weeklyBoosters = [];
+        /**
+         * Generates routine HTML based on skin profile.
+         * @param {Object} profile - Skin profile (primaryType, concerns).
+         * @returns {string} HTML string for the routine.
+         */
+        function generateRoutineHTML(profile) {
+            const { primaryType, concerns } = profile;
+            const isSensitive = concerns.includes('Sensitive');
+            const hasAcne = concerns.includes('Acne');
+            const hasHyperpigmentation = concerns.includes('Hyperpigmentation');
+            const hasAging = concerns.includes('Aging');
+            let morningRoutine = [];
+            let eveningRoutine = [];
+            let weeklyBoosters = [];
 
-            // Base routines based on primary skin type
-            switch (primaryType) {
-                case 'Normal':
-                    morningRoutine = ['Gentle Cleanser', 'Hydrating Toner (e.g., with Hyaluronic Acid or Rose Water)', 'Antioxidant Serum (e.g., Vitamin C)', 'Lightweight Moisturizer', 'Broad-Spectrum SPF 30+'];
-                    eveningRoutine = ['Gentle Cleanser', 'Hydrating Toner', 'Hydrating Serum (e.g., Hyaluronic Acid)', 'Moisturizer'];
-                    weeklyBoosters = ['Hydrating Mask (e.g., sheet mask or cream mask) for an extra glow boost.', 'Gentle Enzyme Exfoliant (if desired for smoothness).'];
-                    break;
-                case 'Dry':
-                    morningRoutine = ['Cream or Hydrating Cleanser (no harsh sulfates)', 'Alcohol-Free Hydrating Toner (e.g., with Ceramides or Glycerin)', 'Calming/Barrier Repair Serum (e.g., Ceramides, Niacinamide)', 'Rich, Emollient Moisturizer', 'Mineral Broad-Spectrum SPF 30+ (gentler option)'];
-                    eveningRoutine = ['Gentle Cream Cleanser', 'Alcohol-Free Hydrating Toner', 'Hydrating Serum (e.g., Hyaluronic Acid, Glycerin)', 'Rich, Barrier-Supporting Moisturizer'];
-                    weeklyBoosters = ['Cream or Gel Hydrating Mask (for intense moisture).', 'Nourishing Facial Oil (can be added to moisturizer).'];
-                    break;
-                case 'Oily':
-                    morningRoutine = ['Foaming or Gel Cleanser (with Salicylic Acid or Glycolic Acid)', 'Oil-Controlling Toner (e.g., with Witch Hazel or Niacinamide)', 'Lightweight Antioxidant Serum (e.g., Vitamin C)', 'Oil-Free Gel Moisturizer', 'Broad-Spectrum SPF 30+'];
-                    eveningRoutine = ['Foaming or Gel Cleanser (can use a gentle option)', 'Oil-Controlling Toner', 'Lightweight Hydrating Serum', 'Oil-Free Gel Moisturizer'];
-                    weeklyBoosters = ['Clay or Charcoal Mask (to absorb excess oil).', 'BHA (Salicylic Acid) Exfoliant.'];
-                    break;
-                case 'Combination':
-                    morningRoutine = ['Gentle Foaming Cleanser', 'Hydrating Toner (applied to dry areas)', 'Niacinamide Serum (for oil control)', 'Lightweight Moisturizer', 'Broad-Spectrum SPF 30+'];
-                    eveningRoutine = ['Gentle Cleanser', 'Hydrating Toner', 'Targeted Treatment (e.g., a spot treatment or an acid for oily areas)', 'Moisturizer (apply more on dry areas)'];
-                    weeklyBoosters = ['Multi-Masking (e.g., a clay mask on the T-zone and a hydrating mask on the cheeks).', 'AHA Exfoliant (e.g., Glycolic or Lactic Acid) to smooth skin texture.'];
-                    break;
-                default:
-                    break;
-            }
+            // Base routines based on primary skin type
+            switch (primaryType) {
+                case 'Normal':
+                    morningRoutine = ['Gentle Cleanser', 'Hydrating Toner (e.g., with Hyaluronic Acid or Rose Water)', 'Antioxidant Serum (e.g., Vitamin C)', 'Lightweight Moisturizer', 'Broad-Spectrum SPF 30+'];
+                    eveningRoutine = ['Gentle Cleanser', 'Hydrating Toner', 'Hydrating Serum (e.g., Hyaluronic Acid)', 'Moisturizer'];
+                    weeklyBoosters = ['Hydrating Mask (e.g., sheet mask or cream mask) for an extra glow boost.', 'Gentle Enzyme Exfoliant (if desired for smoothness).'];
+                    break;
+                case 'Dry':
+                    morningRoutine = ['Cream or Hydrating Cleanser (no harsh sulfates)', 'Alcohol-Free Hydrating Toner (e.g., with Ceramides or Glycerin)', 'Calming/Barrier Repair Serum (e.g., Ceramides, Niacinamide)', 'Rich, Emollient Moisturizer', 'Mineral Broad-Spectrum SPF 30+ (gentler option)'];
+                    eveningRoutine = ['Gentle Cream Cleanser', 'Alcohol-Free Hydrating Toner', 'Hydrating Serum (e.g., Hyaluronic Acid, Glycerin)', 'Rich, Barrier-Supporting Moisturizer'];
+                    weeklyBoosters = ['Cream or Gel Hydrating Mask (for intense moisture).', 'Nourishing Facial Oil (can be added to moisturizer).'];
+                    break;
+                case 'Oily':
+                    morningRoutine = ['Foaming or Gel Cleanser (with Salicylic Acid or Glycolic Acid)', 'Oil-Controlling Toner (e.g., with Witch Hazel or Niacinamide)', 'Lightweight Serum (e.g., Niacinamide or oil-free)', 'Oil-Free Moisturizer (gel or lotion)', 'Oil-Free Broad-Spectrum SPF 30+'];
+                    eveningRoutine = ['Foaming or Gel Cleanser', 'Toner with a Chemical Exfoliant (e.g., Glycolic or Salicylic Acid) 2-3x a week', 'Lightweight Serum (e.g., Niacinamide)', 'Lightweight Moisturizer'];
+                    weeklyBoosters = ['Clay Mask to draw out impurities.', 'Spot Treatment for breakouts as needed.'];
+                    break;
+                case 'Combination':
+                    morningRoutine = ['Gentle Gel or Foaming Cleanser', 'Balancing Toner (e.g., with Witch Hazel or green tea)', 'Antioxidant Serum (e.g., Vitamin C)', 'Lightweight Moisturizer', 'Broad-Spectrum SPF 30+'];
+                    eveningRoutine = ['Gentle Gel Cleanser', 'Targeted Treatment for T-zone (e.g., Salicylic Acid)', 'Hydrating Serum for dry areas (e.g., Hyaluronic Acid)', 'Lightweight Moisturizer'];
+                    weeklyBoosters = ['Clay Mask on the T-zone and a Hydrating Mask on the cheeks.', 'Gentle exfoliation with a BHA or AHA product.'];
+                    break;
+            }
 
-            // Adjust for concerns
-            if (hasAcne) {
-                if (!isSensitive) {
-                    morningRoutine.splice(1, 0, 'Acne-Fighting Toner (e.g., Salicylic Acid)');
-                    eveningRoutine.splice(1, 0, 'Acne Treatment Serum (e.g., Benzoyl Peroxide or Salicylic Acid)');
-                    weeklyBoosters.push('Spot Treatment or Clay Mask (as needed).');
-                } else {
-                    morningRoutine.splice(1, 0, 'Gentle BHA Toner or Essence');
-                    eveningRoutine.splice(1, 0, 'Azelaic Acid or Bakuchiol Serum (gentler alternative)');
-                    weeklyBoosters.push('Gentle Salicylic Acid Mask (once a week).');
-                }
-            }
+            // Customizing routines based on specific concerns
+            if (hasAcne) {
+                // Modify existing steps for acne
+                if (!morningRoutine.includes('Foaming or Gel Cleanser (with Salicylic Acid or Glycolic Acid)')) {
+                    morningRoutine[0] = 'Acne-Fighting Cleanser (e.g., with Salicylic Acid or Benzoyl Peroxide)';
+                }
+                const acneTreatment = 'Spot Treatment (e.g., Benzoyl Peroxide or Tea Tree Oil)';
+                if (!eveningRoutine.includes(acneTreatment)) {
+                    eveningRoutine.splice(eveningRoutine.length - 1, 0, acneTreatment);
+                }
+                if (!weeklyBoosters.includes('Clay Mask to draw out impurities.')) {
+                    weeklyBoosters.push('Clay Mask to draw out impurities.');
+                }
+            }
 
-            if (hasHyperpigmentation) {
-                if (!isSensitive) {
-                    morningRoutine.splice(2, 0, 'Vitamin C Serum');
-                    eveningRoutine.splice(2, 0, 'Brightening Serum (e.g., Niacinamide, Alpha Arbutin, Kojic Acid)');
-                    weeklyBoosters.push('AHA Chemical Exfoliant (Glycolic or Lactic Acid, 1-2 times a week).');
-                } else {
-                    morningRoutine.splice(2, 0, 'Gentle Vitamin C Serum');
-                    eveningRoutine.splice(2, 0, 'Niacinamide or Azelaic Acid Serum');
-                    weeklyBoosters.push('PHA or Mandelic Acid Exfoliant (gentle exfoliation).');
-                }
-            }
+            if (hasHyperpigmentation) {
+                // Add specific hyperpigmentation-fighting ingredients
+                const vitaminC = 'Antioxidant Serum (e.g., Vitamin C) - crucial for brightening!';
+                const exfoliant = 'AHA/BHA Exfoliant or Retinoid (start slow, 1-2x a week)';
+                if (!morningRoutine.includes(vitaminC)) {
+                    morningRoutine.splice(2, 0, vitaminC);
+                }
+                if (!eveningRoutine.includes(exfoliant)) {
+                    eveningRoutine.splice(2, 0, exfoliant);
+                }
+            }
 
-            if (hasAging) {
-                if (!isSensitive) {
-                    eveningRoutine.splice(2, 0, 'Retinoid (Retinol) Serum (start with a low concentration)');
-                } else {
-                    eveningRoutine.splice(2, 0, 'Bakuchiol or Gentle Retinoid');
-                }
-                morningRoutine.splice(2, 0, 'Antioxidant Serum (Vitamin C)');
-                weeklyBoosters.push('Peptide Serum or Mask.');
-            }
+            if (hasAging) {
+                // Introduce retinoids and peptides
+                const retinol = 'Retinoid or Bakuchiol Serum (start 2-3x a week)';
+                if (!eveningRoutine.includes(retinol)) {
+                    eveningRoutine.splice(2, 0, retinol);
+                }
+                const peptideSerum = 'Peptide Serum (can be used morning or night, before moisturizer)';
+                if (!morningRoutine.includes(peptideSerum)) {
+                    morningRoutine.splice(2, 0, peptideSerum);
+                }
+            }
 
-            if (isSensitive) {
-                const sensitiveNote = '<i>(Note: For sensitive skin, always introduce one new product at a time and patch test. Prioritize calming, fragrance-free products.)</i>';
-                morningRoutine.push(sensitiveNote);
-                eveningRoutine.push(sensitiveNote);
-            }
-            
-            const morningList = morningRoutine.map(item => `<li class="p-3 text-sm md:text-base">${item}</li>`).join('');
-            const eveningList = eveningRoutine.map(item => `<li class="p-3 text-sm md:text-base">${item}</li>`).join('');
-            const weeklyList = weeklyBoosters.map(item => `<li class="p-3 text-sm md:text-base">${item}</li>`).join('');
+            if (isSensitive) {
+                // Prioritize gentle versions and remove potential irritants
+                morningRoutine = morningRoutine.map(step => {
+                    if (step.includes('Acid')) return step.replace('Acid', 'Gentle Acid (e.g., Lactic Acid)');
+                    if (step.includes('Foaming or Gel Cleanser')) return 'Gentle Cream Cleanser';
+                    return step;
+                });
+                eveningRoutine = eveningRoutine.map(step => {
+                    if (step.includes('Acid')) return step.replace('Acid', 'Gentle Acid (e.g., Lactic Acid)');
+                    return step;
+                });
+                // Remove retinoids from sensitive skin if they are added
+                eveningRoutine = eveningRoutine.filter(step => !step.includes('Retinoid'));
+                weeklyBoosters = weeklyBoosters.map(step => {
+                    if (step.includes('Exfoliant')) return 'Very Gentle Enzyme Exfoliant';
+                    return step;
+                });
+            }
 
-            return `
-                <p class="text-xl font-semibold mb-4">Auntie Esty says your skin profile is: <span class="text-[#b37e76]">${primaryType}</span> with concerns about <span class="text-[#b37e76]">${concerns.join(', ') || 'none'}.</span></p>
-                <div class="routine-section mb-6">
-                    <h4 class="mb-3">🌞 Morning Routine</h4>
-                    <ul class="routine-list space-y-2 text-left">
-                        ${morningList}
-                    </ul>
-                </div>
-                <div class="routine-section mb-6">
-                    <h4 class="mb-3">🌙 Evening Routine</h4>
-                    <ul class="routine-list space-y-2 text-left">
-                        ${eveningList}
-                    </ul>
-                </div>
-                <div class="routine-section">
-                    <h4 class="mb-3">✨ Weekly Boosters</h4>
-                    <ul class="routine-list space-y-2 text-left">
-                        ${weeklyList}
-                    </ul>
-                </div>
-            `;
-        }
+            const formatRoutine = (steps) => steps.map(step => `<li class="p-3 my-2 shadow-sm">${step}</li>`).join('');
 
-        // --- Event Listener for Form Submission ---
-        skincareQuizForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            loadingIndicator.classList.remove('hidden');
-            resultsSection.classList.add('hidden');
-            routineContent.innerHTML = '';
-            // Simulate a delay for the 'thinking' effect
-            setTimeout(() => {
-                loadingIndicator.classList.add('hidden');
-                const formData = new FormData(skincareQuizForm);
-                const answers = Object.fromEntries(formData.entries());
-                const scores = calculateScores(answers);
-                const profile = determineSkinProfile(scores);
-                routineContent.innerHTML = generateRoutineHTML(profile);
-                resultsSection.classList.remove('hidden');
-                sendHeightToParent(); // Update iframe height after content is added
-            }, 2000);
-        });
+            return `
+                <div class="routine-section mb-8">
+                    <h4 class="text-center md:text-xl mb-4">☀️ Morning Routine</h4>
+                    <ul class="routine-list space-y-2 text-base text-gray-700">
+                        ${formatRoutine(morningRoutine)}
+                    </ul>
+                </div>
+                <div class="routine-section mb-8">
+                    <h4 class="text-center md:text-xl mb-4">🌙 Evening Routine</h4>
+                    <ul class="routine-list space-y-2 text-base text-gray-700">
+                        ${formatRoutine(eveningRoutine)}
+                    </ul>
+                </div>
+                ${weeklyBoosters.length > 0 ? `
+                <div class="routine-section">
+                    <h4 class="text-center md:text-xl mb-4">✨ Weekly Boosters</h4>
+                    <ul class="routine-list space-y-2 text-base text-gray-700">
+                        ${formatRoutine(weeklyBoosters)}
+                    </ul>
+                </div>` : ''}
+            `;
+        }
 
-    </script>
+        /**
+         * Main function to handle form submission and generate the routine.
+         */
+        skincareQuizForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Clear previous results and messages
+            resultsSection.classList.add('hidden');
+            routineContent.innerHTML = '';
+            messageBox.classList.add('hidden');
+
+            const formData = new FormData(skincareQuizForm);
+            const answers = Object.fromEntries(formData.entries());
+
+            // Check if all questions are answered
+            const questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8'];
+            const unanswered = questions.filter(q => !answers[q]);
+            if (unanswered.length > 0) {
+                showMessage("Please answer all questions before building your routine!");
+                return;
+            }
+
+            // Show loading spinner
+            loadingIndicator.classList.remove('hidden');
+            calculateRoutineButton.disabled = true;
+
+            try {
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                const scores = calculateScores(answers);
+                const profile = determineSkinProfile(scores);
+                const routineHTML = generateRoutineHTML(profile);
+
+                // Display results
+                routineContent.innerHTML = routineHTML;
+                resultsSection.classList.remove('hidden');
+            } catch (error) {
+                console.error("Failed to generate routine:", error);
+                showMessage("Oops! Something went wrong. Please try again.");
+            } finally {
+                // Hide loading spinner and re-enable button
+                loadingIndicator.classList.add('hidden');
+                calculateRoutineButton.disabled = false;
+                sendHeightToParent(); // Adjust height for the new content
+            }
+        });
+
+        // Add event listeners to radio options for hover effect on click
+        const radioOptions = document.querySelectorAll('.radio-option');
+        radioOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const radio = option.querySelector('input[type="radio"]');
+                if (radio) {
+                    radio.checked = true;
+                }
+            });
+        });
+    </script>
 </body>
 </html>
+
 
