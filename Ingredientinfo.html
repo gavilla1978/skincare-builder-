@@ -255,7 +255,7 @@
                     reader.readAsDataURL(file);
                 });
                 // NEW: More specific prompt for image analysis
-                prompt = 'Analyze the provided image to find the ingredient list. Then, for each ingredient found, provide a brief, easy-to-understand explanation. Structure the response as a JSON array where each object has the keys \'ingredientName\', \'purpose\', \'benefit\', and \'consideration\'.';
+                prompt = 'I need you to analyze the image of a skincare product label. Please extract the ingredient list and for each ingredient, provide a brief, easy-to-understand explanation. Format your response as a JSON array of objects. Each object in the array should have four keys: "ingredientName", "purpose", "benefit", and "consideration". The value for "consideration" should be any potential side effects or things to be aware of. If any of the fields are not applicable, leave them as an empty string.';
             } else if (ingredientsList.length > 0) {
                 // If text is provided, use that
                 loadingIndicator.querySelector('span').textContent = 'Decoding ingredients...';
@@ -339,3 +339,5 @@
     </script>
 </body>
 </html>
+
+
