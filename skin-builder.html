@@ -18,11 +18,20 @@
             background-image: none !important; /* Explicitly remove any background image */
             background-size: 100% 100% !important; /* Prevent any default scaling */
             background-attachment: fixed !important; /* Prevent any scroll-related effects */
-            transition: none !important; /* Disable all transitions to prevent unwanted animations */
+            
+            /* New, more aggressive rules to disable all animations and transitions */
+            transition: none !important;
+            animation: none !important;
             
             padding: 1rem;
             box-sizing: border-box;
             min-height: 100vh; /* Use min-height for full viewport height */
+        }
+
+        /* New rule: Disable all transitions and animations on all child elements */
+        .skincare-builder-recolored-container * {
+            transition: none !important;
+            animation: none !important;
         }
 
         .skincare-builder-recolored-container .routine-card {
@@ -678,6 +687,7 @@
     </script>
 </body>
 </html>
+
 
 
 
