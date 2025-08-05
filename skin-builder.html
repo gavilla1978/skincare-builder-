@@ -39,7 +39,8 @@
             
             padding: 1rem;
             box-sizing: border-box;
-            min-height: 100vh; /* Use min-height for full viewport height */
+            /* REMOVED: min-height: 100vh; to allow the content to dictate the height */
+            padding-bottom: 5rem; /* Added extra padding to the bottom */
         }
 
         /* Rule to disable all transitions and animations on all child elements */
@@ -687,6 +688,12 @@
                 sendHeightToParent(); // Adjust height for the new content
             }
         });
+        
+        // --- Event listener for initial page load ---
+        window.addEventListener('load', () => {
+            sendHeightToParent();
+        });
+
 
         // Add event listeners to radio options for hover effect on click
         const radioOptions = document.querySelectorAll('.radio-option');
@@ -701,7 +708,6 @@
     </script>
 </body>
 </html>
-
 
 
 
