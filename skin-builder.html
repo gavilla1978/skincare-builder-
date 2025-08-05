@@ -11,42 +11,15 @@
          * it from 'leaking' and affecting other elements on your website.
          */
         body {
-            /* We will use a pseudo-element for the fixed background */
-            background-color: #EAD6D2;
+            background-color: #EAD6D2; /* Solid soft rose background color */
             overflow-x: hidden; /* Prevents horizontal scrollbar */
         }
         
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #EAD6D2; /* Solid soft rose background color */
-            z-index: -1; /* Place it behind all content */
-        }
-
         .skincare-builder-recolored-container {
             font-family: 'Inter', sans-serif;
-            
-            /* Remove background from this container since the pseudo-element handles it */
             background-color: transparent;
-            
-            /* Aggressive rules to disable all animations and transitions */
-            transition: none !important;
-            animation: none !important;
-            
-            padding: 1rem;
-            box-sizing: border-box;
-            /* REMOVED: min-height: 100vh; to allow the content to dictate the height */
             padding-bottom: 5rem; /* Added extra padding to the bottom */
-        }
-
-        /* Rule to disable all transitions and animations on all child elements */
-        .skincare-builder-recolored-container * {
-            transition: none !important;
-            animation: none !important;
+            min-height: 100vh;
         }
 
         .skincare-builder-recolored-container .routine-card {
@@ -54,7 +27,7 @@
             border-radius: 1.5rem;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* More pronounced shadow */
             padding: 2rem;
-            margin: 2rem auto; /* Add margin to top and bottom */
+            margin: 2rem auto; /* Ensures the card is centered with space above/below */
             text-align: center;
             border: 1px solid #F0E0D9; /* Lighter, more subtle border */
             max-width: 90%; /* Ensure responsiveness on smaller screens */
@@ -142,10 +115,6 @@
             color: #4A4342;
         }
         
-        .skincare-builder-recolored-container .disclaimer-box strong {
-            color: #4A4342;
-        }
-        
         /*
          * This style is for the animated spinner,
          * ensuring it's a perfect circle with a partial border.
@@ -168,7 +137,7 @@
     </style>
 </head>
 <body>
-    <div id="main-container" class="skincare-builder-recolored-container w-full p-4 md:p-6 lg:p-8">
+    <div id="main-container" class="skincare-builder-recolored-container w-full">
         <div class="routine-card mx-auto max-w-4xl p-8 lg:p-12">
             <h1 class="builder-title font-extrabold mb-6 md:text-5xl">Auntie Esty's Routine Architect</h1>
             <p class="text-lg md:text-xl text-gray-600 mb-8">Let's build your perfect personalized skincare routine, bestie!</p>
