@@ -10,16 +10,30 @@
          * All CSS in this immersive is scoped to the parent class to prevent
          * it from 'leaking' and affecting other elements on your website.
          */
+        body {
+            /* We will use a pseudo-element for the fixed background */
+            background-color: #EAD6D2;
+            overflow-x: hidden; /* Prevents horizontal scrollbar */
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #EAD6D2; /* Solid soft rose background color */
+            z-index: -1; /* Place it behind all content */
+        }
+
         .skincare-builder-recolored-container {
             font-family: 'Inter', sans-serif;
             
-            /* Aggressive background reset to prevent any unexpected behavior */
-            background-color: #EAD6D2 !important; /* Solid soft rose background color with high priority */
-            background-image: none !important; /* Explicitly remove any background image */
-            background-size: 100% 100% !important; /* Prevent any default scaling */
-            background-attachment: fixed !important; /* Prevent any scroll-related effects */
+            /* Remove background from this container since the pseudo-element handles it */
+            background-color: transparent;
             
-            /* New, more aggressive rules to disable all animations and transitions */
+            /* Aggressive rules to disable all animations and transitions */
             transition: none !important;
             animation: none !important;
             
@@ -28,7 +42,7 @@
             min-height: 100vh; /* Use min-height for full viewport height */
         }
 
-        /* New rule: Disable all transitions and animations on all child elements */
+        /* Rule to disable all transitions and animations on all child elements */
         .skincare-builder-recolored-container * {
             transition: none !important;
             animation: none !important;
