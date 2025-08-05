@@ -12,7 +12,14 @@
          */
         .skincare-builder-recolored-container {
             font-family: 'Inter', sans-serif;
-            background-color: #EAD6D2; /* Solid soft rose background color to prevent glitches */
+            
+            /* Aggressive background reset to prevent any unexpected behavior */
+            background-color: #EAD6D2 !important; /* Solid soft rose background color with high priority */
+            background-image: none !important; /* Explicitly remove any background image */
+            background-size: 100% 100% !important; /* Prevent any default scaling */
+            background-attachment: fixed !important; /* Prevent any scroll-related effects */
+            transition: none !important; /* Disable all transitions to prevent unwanted animations */
+            
             padding: 1rem;
             box-sizing: border-box;
             min-height: 100vh; /* Use min-height for full viewport height */
@@ -671,6 +678,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
