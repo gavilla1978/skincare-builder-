@@ -11,118 +11,121 @@
          * it from 'leaking' and affecting other elements on your website.
          */
         body {
-            background-color: #EAD6D2; /* Solid soft rose background color */
+            /* * This is the background fix. By giving the quiz a solid background color,
+             * it covers the "zoomed in" background from your website template.
+             * The hex code #FBF7F5 is a very light, soft pink that complements the rose theme.
+             */
+            background-color: #FBF7F5;
             overflow-x: hidden; /* Prevents horizontal scrollbar */
         }
-
+        
+        /* The main container now has a standard white background */
         .skincare-builder-recolored-container {
             font-family: 'Inter', sans-serif;
-            background-color: transparent;
-            padding-bottom: 5rem; /* Added extra padding to the bottom */
-            min-height: 100vh; /* Ensures the initial height is full screen */
-            /* Removed min-height: 100vh to allow the container to grow with content */
+            background-color: #ffffff;
+            padding-bottom: 5rem;
+            min-height: 100vh;
         }
 
         .skincare-builder-recolored-container .routine-card {
-            background-color: #ffffff;
+            background-color: #FBF7F5; /* Set the card to a lighter color to differentiate */
             border-radius: 1.5rem;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* More pronounced shadow */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
             padding: 2rem;
-            margin: 2rem auto; /* Ensures the card is centered with space above/below */
+            margin: 2rem auto;
             text-align: center;
-            border: 1px solid #F0E0D9; /* Lighter, more subtle border */
-            max-width: 90%; /* Ensure responsiveness on smaller screens */
+            border: 1px solid #F0E0D9;
+            max-width: 90%;
         }
 
         .skincare-builder-recolored-container .builder-title {
-            color: #C9A8A5; /* Updated color to match the search button */
+            color: #C9A8A5;
             font-size: 2.5rem;
             font-weight: 800;
             line-height: 1.2;
         }
         
-        /* Updated the question group heading color */
         .skincare-builder-recolored-container .question-group h3 {
             color: #C9A8A5;
         }
 
         .skincare-builder-recolored-container .question-group {
-            border: 1px solid #F0E0D9; /* Light, subtle rose border */
+            border: 1px solid #F0E0D9;
             border-radius: 0.75rem;
             background-color: #FFFFFF;
         }
 
         .skincare-builder-recolored-container .radio-option:hover {
-            background-color: #F0E5E3; /* Light rose hover state */
+            background-color: #F0E5E3;
         }
 
         .skincare-builder-recolored-container .radio-option input[type="radio"] {
-            accent-color: #C9A8A5; /* Primary brand rose color for radio buttons */
+            accent-color: #C9A8A5;
             transform: scale(1.2);
         }
 
         .skincare-builder-recolored-container .calculate-btn {
-            background-color: #C9A8A5; /* Primary brand rose color for the button */
+            background-color: #C9A8A5;
             color: #ffffff;
             border: none;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .skincare-builder-recolored-container .calculate-btn:hover {
-            background-color: #A48986; /* Darker rose on hover */
+            background-color: #A48986;
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
         
         .skincare-builder-recolored-container .results-section {
-            border-top: 2px dashed #C9A8A5; /* Primary rose for the divider */
+            border-top: 2px dashed #C9A8A5;
         }
 
         .skincare-builder-recolored-container .results-heading {
-            color: #C9A8A5; /* Updated color to match the search button */
+            color: #C9A8A5;
             font-size: 1.8rem;
             font-weight: 700;
         }
 
         .skincare-builder-recolored-container .routine-section h4 {
-            color: #C9A8A5; /* Updated color to match the search button */
+            color: #C9A8A5;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        
+        .skincare-builder-recolored-container .why-section h4 {
+            color: #C9A8A5;
             font-size: 1.4rem;
             font-weight: 700;
         }
 
-        .skincare-builder-recolored-container .routine-list li {
-            background-color: #F0E5E3; /* Light rose for list items */
-            border: 1px solid #C9A8A5; /* Soft rose border */
+        .skincare-builder-recolored-container .routine-list li, .skincare-builder-recolored-container .explanation-list li {
+            background-color: #F0E5E3;
+            border: 1px solid #C9A8A5;
             border-radius: 0.75rem;
-            color: #333333; /* Dark text for readability */
+            color: #333333;
         }
 
-        /* Updated message box to match the peach/orange recommendation box in the example */
         .skincare-builder-recolored-container .message-box {
-            background-color: #FDE8D8; /* Soft peach for info box */
-            color: #4A4342; /* Darker text */
-            border: 1px solid #FBC7A6; /* Soft orange border color */
+            background-color: #FDE8D8;
+            color: #4A4342;
+            border: 1px solid #FBC7A6;
         }
 
         .skincare-builder-recolored-container .disclaimer-box {
-            background-color: #ffffff; /* White background to match the main card */
+            background-color: #ffffff;
             border: 1px solid #E0D4D2;
             color: #4A4342;
         }
-
-        /* The updated CSS to ensure text inside the disclaimer box is the correct color */
+        
         .skincare-builder-recolored-container .disclaimer-box p {
             color: #4A4342;
         }
         
-        /*
-         * This style is for the animated spinner,
-         * ensuring it's a perfect circle with a partial border.
-         */
         .spinner {
-            border-color: #E0D4D2; /* Light, subtle spinner border */
-            border-left-color: #C9A8A5; /* Primary brand color for the animation */
+            border-color: #E0D4D2;
+            border-left-color: #C9A8A5;
             animation: spin 1s linear infinite;
         }
 
@@ -339,7 +342,7 @@
             <div id="resultsSection" class="results-section mt-10 pt-8 text-left hidden">
                 <h2 class="results-heading mb-6 text-center">Your Personalized Routine, Bestie!</h2>
                 <div id="routineContent">
-                    </div>
+                </div>
             </div>
 
             <div class="disclaimer-box rounded-xl p-4 mt-10 text-sm text-left leading-relaxed">
@@ -371,7 +374,7 @@
             if (window.parent) {
                 const height = mainContainer.scrollHeight;
                 window.parent.postMessage({
-                    id: 'skincare-builder-recolored', // Must match the ID in the parent script
+                    id: 'skincare-builder-recolored',
                     height: height
                 }, '*');
             }
@@ -491,6 +494,54 @@
             if (scores.Aging >= 2) concerns.push('Aging');
             return { primaryType, concerns };
         }
+        
+        /**
+         * Generates an HTML explanation based on the user's skin profile.
+         * @param {Object} profile - Skin profile (primaryType, concerns).
+         * @returns {string} HTML string for the explanation.
+         */
+        function generateExplanationHTML(profile) {
+            const { primaryType, concerns } = profile;
+            let explanation = `
+                <div class="why-section mb-8 text-left">
+                    <h4 class="md:text-xl mb-4">Your Skin Profile: <span class="font-bold">${primaryType}</span></h4>
+                    <p class="mb-4">Based on your quiz answers, your skin has been identified as **${primaryType}**! This is why Auntie Esty has recommended a routine with these specific steps:</p>
+                    <ul class="explanation-list space-y-2 text-base text-gray-700">
+            `;
+            
+            // Explanation for the primary skin type
+            switch (primaryType) {
+                case 'Normal':
+                    explanation += `<li class="p-3 my-2 shadow-sm">Your skin is well-balanced, so the routine focuses on maintaining that healthy state with gentle hydration and protection.</li>`;
+                    break;
+                case 'Dry':
+                    explanation += `<li class="p-3 my-2 shadow-sm">Your skin lacks moisture, so we're focusing on rich, hydrating ingredients like ceramides and hyaluronic acid to repair your skin's barrier.</li>`;
+                    break;
+                case 'Oily':
+                    explanation += `<li class="p-3 my-2 shadow-sm">Your skin produces excess oil. We've included oil-controlling and exfoliating ingredients like salicylic acid to keep pores clear and reduce shine.</li>`;
+                    break;
+                case 'Combination':
+                    explanation += `<li class="p-3 my-2 shadow-sm">Your T-zone is oily while your cheeks are dry, so this routine uses a balanced approach to treat both areas without causing irritation.</li>`;
+                    break;
+            }
+
+            // Explanations for specific concerns
+            if (concerns.includes('Sensitive')) {
+                explanation += `<li class="p-3 my-2 shadow-sm">**For your Sensitivity:** We've replaced harsh ingredients with gentle alternatives and added calming products to reduce redness and irritation.</li>`;
+            }
+            if (concerns.includes('Acne')) {
+                explanation += `<li class="p-3 my-2 shadow-sm">**For your Acne:** The routine includes ingredients like salicylic acid or benzoyl peroxide to treat breakouts and prevent future ones.</li>`;
+            }
+            if (concerns.includes('Hyperpigmentation')) {
+                explanation += `<li class="p-3 my-2 shadow-sm">**For your Hyperpigmentation:** We've incorporated Vitamin C for brightening and an exfoliant to help fade dark spots and create a more even skin tone.</li>`;
+            }
+            if (concerns.includes('Aging')) {
+                explanation += `<li class="p-3 my-2 shadow-sm">**For signs of Aging:** The routine features active ingredients like retinoids or peptides to help with fine lines and improve skin firmness.</li>`;
+            }
+            
+            explanation += `</ul></div>`;
+            return explanation;
+        }
 
         /**
          * Generates routine HTML based on skin profile.
@@ -533,7 +584,6 @@
 
             // Customizing routines based on specific concerns
             if (hasAcne) {
-                // Modify existing steps for acne
                 if (!morningRoutine.includes('Foaming or Gel Cleanser (with Salicylic Acid or Glycolic Acid)')) {
                     morningRoutine[0] = 'Acne-Fighting Cleanser (e.g., with Salicylic Acid or Benzoyl Peroxide)';
                 }
@@ -547,7 +597,6 @@
             }
 
             if (hasHyperpigmentation) {
-                // Add specific hyperpigmentation-fighting ingredients
                 const vitaminC = 'Antioxidant Serum (e.g., Vitamin C) - crucial for brightening!';
                 const exfoliant = 'AHA/BHA Exfoliant or Retinoid (start slow, 1-2x a week)';
                 if (!morningRoutine.includes(vitaminC)) {
@@ -559,7 +608,6 @@
             }
 
             if (hasAging) {
-                // Introduce retinoids and peptides
                 const retinol = 'Retinoid or Bakuchiol Serum (start 2-3x a week)';
                 if (!eveningRoutine.includes(retinol)) {
                     eveningRoutine.splice(2, 0, retinol);
@@ -571,7 +619,6 @@
             }
 
             if (isSensitive) {
-                // Prioritize gentle versions and remove potential irritants
                 morningRoutine = morningRoutine.map(step => {
                     if (step.includes('Acid')) return step.replace('Acid', 'Gentle Acid (e.g., Lactic Acid)');
                     if (step.includes('Foaming or Gel Cleanser')) return 'Gentle Cream Cleanser';
@@ -581,7 +628,6 @@
                     if (step.includes('Acid')) return step.replace('Acid', 'Gentle Acid (e.g., Lactic Acid)');
                     return step;
                 });
-                // Remove retinoids from sensitive skin if they are added
                 eveningRoutine = eveningRoutine.filter(step => !step.includes('Retinoid'));
                 weeklyBoosters = weeklyBoosters.map(step => {
                     if (step.includes('Exfoliant')) return 'Very Gentle Enzyme Exfoliant';
@@ -620,7 +666,6 @@
         skincareQuizForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Clear previous results and messages
             resultsSection.classList.add('hidden');
             routineContent.innerHTML = '';
             messageBox.classList.add('hidden');
@@ -628,7 +673,6 @@
             const formData = new FormData(skincareQuizForm);
             const answers = Object.fromEntries(formData.entries());
 
-            // Check if all questions are answered
             const questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8'];
             const unanswered = questions.filter(q => !answers[q]);
             if (unanswered.length > 0) {
@@ -636,39 +680,35 @@
                 return;
             }
 
-            // Show loading spinner
             loadingIndicator.classList.remove('hidden');
             calculateRoutineButton.disabled = true;
 
             try {
-                // Simulate API call delay
                 await new Promise(resolve => setTimeout(resolve, 1500));
                 
                 const scores = calculateScores(answers);
                 const profile = determineSkinProfile(scores);
+                
+                // Add the new explanation section before the routines
+                const explanationHTML = generateExplanationHTML(profile);
                 const routineHTML = generateRoutineHTML(profile);
 
-                // Display results
-                routineContent.innerHTML = routineHTML;
+                routineContent.innerHTML = explanationHTML + routineHTML;
                 resultsSection.classList.remove('hidden');
                 
-                // After displaying content, send the new height to the parent
                 sendHeightToParent();
 
             } catch (error) {
                 console.error("Failed to generate routine:", error);
                 showMessage("Oops! Something went wrong. Please try again.");
             } finally {
-                // Hide loading spinner and re-enable button
                 loadingIndicator.classList.add('hidden');
                 calculateRoutineButton.disabled = false;
                 
-                // Send the new height again in case the loading spinner was different
                 sendHeightToParent();
             }
         });
         
-        // Add event listeners to radio options for hover effect on click
         const radioOptions = document.querySelectorAll('.radio-option');
         radioOptions.forEach(option => {
             option.addEventListener('click', () => {
@@ -681,6 +721,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
